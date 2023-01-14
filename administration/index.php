@@ -1,0 +1,1 @@
+<?php header('Content-Type: application/json; charset=utf-8'); echo json_encode(["Error 403" => "Aucun droit d'acces. Veuillez contacter le Developpeur."], JSON_PRETTY_PRINT); ?>

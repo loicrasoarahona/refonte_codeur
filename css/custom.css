@@ -1,0 +1,116 @@
+#discussion_block {
+	display: flex;
+	border: 1px solid #eee;
+	border-radius: 10px;
+	flex-direction: column;
+	height: 500px;
+	margin: 10px auto;
+	max-width: 700px;
+}
+#discussion_block  #discussion_bl_header{
+	display: block;
+	padding: 10px 5px;
+	text-align: center;
+	background-color: #eee;
+}
+#discussion_block  #discussion_bl_header h2{
+	font-size: 17px;
+	font-weight: 600;
+	color: #000;
+	margin: 0;
+	padding: 0;
+	line-height: 1.5;
+}
+#discussion_block  #discussion_bl_content{
+	flex: 1;
+	overflow-y: scroll;
+	text-align: initial;
+	padding: 10px;
+}
+#discussion_block  #discussion_bl_footer{
+	display: block;
+	display: flex;
+	flex-wrap: wrap;
+	background-color: #eee;
+	padding: 10px 10px;
+	align-items: center;
+}
+
+#discussion_block #discussion_bl_footer #discussion_bl_footer_textarea{
+	flex: 1;
+}
+#discussion_block #discussion_bl_footer #discussion_bl_footer_textarea textarea{
+	display: block;
+	width: 100%;
+	height: 60px;
+	border: 1px solid #222;
+	border-radius: 5px;
+	resize: none;
+	padding: 10px;
+}
+#discussion_block  #discussion_bl_footer h3{
+	font-size: 12px;
+	font-weight: 600;
+	color: #000;
+	margin: 0;
+	padding: 0;
+	line-height: 1.5;
+}
+#discussion_block  #discussion_bl_footer #discussion_bl_footer_button{
+	margin: 0 15px;
+}
+#discussion_block  #discussion_bl_footer #discussion_bl_footer_button button{
+	color :#000000
+}
+
+#discussion_block  .box {
+	display: inline-block;
+	padding: 10px 20px;
+	border-radius: 5px;
+	background: #eeeeee;
+	color: #000;
+	float: right;
+	line-height: 1.5;
+	max-width: 100%;
+}
+
+#discussion_block  .box .box_author{
+	display: block;
+	font-size: 14px;
+	font-weight: 600;
+}
+#discussion_block  .box .box_content{
+	display: block;
+	font-size: 13px;
+}
+#discussion_block  .box .box_date{
+	display: block;
+	font-size: 12px;
+	color: #5e5e5e;
+	text-align: left;
+}
+#discussion_block .box_row{
+	margin: 10px 0;
+}
+#discussion_block .box_row::after{
+	display: block;
+	content: "";
+	clear: both;
+}
+#discussion_block .box_recevor .box{
+	float: left;
+	background-color: #5290c4;
+}
+#discussion_block .box_recevor .box .box_date{
+	text-align: right;
+	color: #eeeeee;
+}
+#discussion_block .box_recevor .box .box_content,#discussion_block .box_recevor .box .box_author{
+	color: #fff;
+}
+.not-see{
+	background-color: #deebff !important;
+}
+.img-side-1{
+border: 2px solid red!important;
+}
