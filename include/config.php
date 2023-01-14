@@ -3,15 +3,16 @@
 
 
 $http_origin = $_SERVER['HTTP_ORIGIN'];
-if (strpos(strtolower($http_origin), "https://utilooservices.com/") !== false)
+if (strpos(strtolower($http_origin), "http://127.0.0.1/") !== false)
+// if (strpos(strtolower($http_origin), "https://utilooservices.com/") !== false)
 {
     header("Access-Control-Allow-Origin: $http_origin");
     $http_origin = $_SERVER['HTTP_ORIGIN'];
-    if($_SERVER['REQUEST_METHOD'] == "POST") {
+    if ($_SERVER['REQUEST_METHOD'] == "POST") {
         header('Access-Control-Allow-Credentials: true');
         header('Access-Control-Allow-Headers : "X-Accept-Charset,X-Accept,Content-Type, X-CSRF-Token, X-Cookie,xmlhttprequest,HTTP_X_REQUESTED_WITH"');
     }
-}else{
+} else {
     header('Access-Control-Allow-Origin: *');
 }
 
@@ -20,26 +21,31 @@ session_start();
 
 // Informations d'identification
 define('DB_SERVER', 'localhost');
-define('DB_USERNAME', 'timtim');
-define('DB_PASSWORD', 'Timo12300@');
+define('DB_USERNAME', 'loic');
+define('DB_PASSWORD', 'anjomakely');
 define('DB_NAME', 'timtim');
+// define('DB_SERVER', 'localhost');
+// define('DB_USERNAME', 'timtim');
+// define('DB_PASSWORD', 'Timo12300@');
+// define('DB_NAME', 'timtim');
 
 $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
- 
 
-if($conn === false){
+
+if ($conn === false) {
     die("ERREUR : Impossible de se connecter. " . mysqli_connect_error());
 }
 
-mysqli_query ($conn,"set character_set_results='utf8mb4'");
-mysqli_query($conn,"set character_set_server='utf8mb4'");
-mysqli_query($conn,"SET NAMES utf8mb4;");
+mysqli_query($conn, "set character_set_results='utf8mb4'");
+mysqli_query($conn, "set character_set_server='utf8mb4'");
+mysqli_query($conn, "SET NAMES utf8mb4;");
 mb_internal_encoding("UTF-8");
 setlocale(LC_TIME, ['fr', 'fra', 'fr_FR']);
 date_default_timezone_set('Europe/Paris');
 
 
-$base_url = "https://utilooservices.com/";
+$base_url = "http://127.0.0.1/";
+// $base_url = "https://utilooservices.com/";
 $url_instagram = "";
 $url_youtube = ""; // sans@
 $url_facebook = "";
@@ -56,20 +62,21 @@ $totalCommandeValide = 0;
 $totalMissionsAttente = 0;
 
 
-function notifications($target,$target_id,$user_id,$user_id_send)
+function notifications($target, $target_id, $user_id, $user_id_send)
 {
     $conn = $GLOBALS['conn'];
     $time = time();
     $sql = "INSERT INTO `notifications`(`user_id`, `user_id_send`, `target`, `id_target`, `date`, `seen`) VALUES ('{$user_id}','{$user_id_send}','{$target}','{$target_id}',{$time},'0')";
-    if(mysqli_query($conn,$sql) === false ){
+    if (mysqli_query($conn, $sql) === false) {
         $sql = "UPDATE `notifications` SET `date` = $time, `seen` = 0 , user_id_send = $user_id_send  where target = '$target' and user_id = $user_id  and ( user_id_send = $user_id_send or user_id_send = 0) and id_target = $target_id";
-        mysqli_query($conn,$sql);
+        mysqli_query($conn, $sql);
     }
 }
 
 
 if (!function_exists('csrf_token')) {
-    function csrf_token($ch){
+    function csrf_token($ch)
+    {
         session_start();
         $_SESSION[$ch]  = md5(uniqid(rand(), TRUE));
         return $_SESSION[$ch];
@@ -103,30 +110,29 @@ function slugify($text)
 }
 function redirect($url)
 {
-    if (!headers_sent())
-    {
-        header('Location: '.$url);
+    if (!headers_sent()) {
+        header('Location: ' . $url);
         exit();
-    }
-    else
-    {
+    } else {
         echo '<script type="text/javascript">';
-        echo 'window.location.href="'.$url.'";';
+        echo 'window.location.href="' . $url . '";';
         echo '</script>';
         echo '<noscript>';
-        echo '<meta http-equiv="refresh" content="0;url='.$url.'" />';
-        echo '</noscript>'; exit();
+        echo '<meta http-equiv="refresh" content="0;url=' . $url . '" />';
+        echo '</noscript>';
+        exit();
     }
 }
 
-function RandomString($max=8) {
+function RandomString($max = 8)
+{
     $i = 0; //Reset the counter.
     $possible_keys = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     $keys_length = strlen($possible_keys);
     $str = ""; //Let's declare the string, to add later.
-    while($i<$max) {
-        $rand = mt_rand(1,$keys_length-1);
-        $str.= $possible_keys[$rand];
+    while ($i < $max) {
+        $rand = mt_rand(1, $keys_length - 1);
+        $str .= $possible_keys[$rand];
         $i++;
     }
     return $str;
@@ -139,10 +145,11 @@ function acronym($ch)
     foreach ($words as $w) {
         $acronym .= mb_substr($w, 0, 1);
     }
-    return mb_substr(strtoupper($acronym),0,2);
+    return mb_substr(strtoupper($acronym), 0, 2);
 }
 
-function ip_info($ip = NULL, $purpose = "location", $deep_detect = TRUE) {
+function ip_info($ip = NULL, $purpose = "location", $deep_detect = TRUE)
+{
     $output = NULL;
     if (filter_var($ip, FILTER_VALIDATE_IP) === FALSE) {
         $ip = $_SERVER["REMOTE_ADDR"];
@@ -206,23 +213,27 @@ function ip_info($ip = NULL, $purpose = "location", $deep_detect = TRUE) {
     }
     return $output;
 }
-function dateToFrench($date, $format){
+function dateToFrench($date, $format)
+{
     $english_days = array('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday');
     $french_days = array('lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche');
     $english_months = array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
     $french_months = array('janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre');
-    return ucfirst(str_replace($english_months, $french_months, str_replace($english_days, $french_days, date($format, ($date) ) ) ));
+    return ucfirst(str_replace($english_months, $french_months, str_replace($english_days, $french_days, date($format, ($date)))));
 }
-function prev_filename($ch){
-    return str_replace(array(" ", "_","/",":","!","?","*","<",">","|","\\","'","�"),'-',$ch);
+function prev_filename($ch)
+{
+    return str_replace(array(" ", "_", "/", ":", "!", "?", "*", "<", ">", "|", "\\", "'", "�"), '-', $ch);
 }
-function plainText($text){
+function plainText($text)
+{
     $text = strip_tags($text, '<br><p><li>');
-    $text = preg_replace ('/<[^>]*>/', PHP_EOL, $text);
+    $text = preg_replace('/<[^>]*>/', PHP_EOL, $text);
     return $text;
 }
 
-function displayMontant($montant, $chiffres_apres_virgule = 2, $symbole = "?") {
+function displayMontant($montant, $chiffres_apres_virgule = 2, $symbole = "?")
+{
     return number_format($montant, $chiffres_apres_virgule, ',', ' ') . "" . $symbole;
 }
 
@@ -257,8 +268,7 @@ function getNotifcations($idUser, $pdo)
 
 function newNotifcations($idUser, $notif, $pdo)
 {
-    if (!empty($idUser) && !empty($notif))
-    {
+    if (!empty($idUser) && !empty($notif)) {
         $sqlNotif = "
             INSERT INTO `notifications` (`id`, `libelle`, `id_user`)
             VALUES (NULL, '" . $notif . "', '" . $idUser . "')
@@ -267,4 +277,3 @@ function newNotifcations($idUser, $notif, $pdo)
         $notif->execute();
     }
 }
-?>

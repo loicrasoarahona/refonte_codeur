@@ -4,16 +4,16 @@
 <div class="container py-5">
     <div class="row py-3">
         <div class="col-lg-4 col-md-6 col-sm-12">
-            <img src="<?=$Innerurllink?>/images/home-hand-smartphone.jpg" alt="img" class="img-fluid img-side-1">
+            <img src="<?= $Innerurllink ?>/images/home-hand-smartphone.jpg" alt="img" class="img-fluid img-side-1">
         </div>
         <div class="col-lg-8 col-md-6 col-sm-12 py-5">
             <p>
-				<span class="font-weight-bold text-warning">Maxiconcour</span> vous permet de gagner des cartes cadeaux de différentes manières : achetez sur vos boutiques préférées et retouchez une partie de vos achats (cashback), participez à des enquêtes, sondages et jeux concours, téléchargez et testez des applications mobile,... et bien plus encore.
+                <span class="font-weight-bold text-warning">Maxiconcour</span> vous permet de gagner des cartes cadeaux de différentes manières : achetez sur vos boutiques préférées et retouchez une partie de vos achats (cashback), participez à des enquêtes, sondages et jeux concours, téléchargez et testez des applications mobile,... et bien plus encore.
             </p>
         </div>
     </div>
-	
-	<!-- membre -->
+
+    <!-- membre -->
 
     <div class="row py-2">
         <div class="col-lg-4 col-md-4 col-sm-12">
@@ -24,92 +24,95 @@
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">
-					<p class="mb-0" style="font-size: 18px;">
-					<span class="icofont-users-social text-warning mr-2"></span>
-					<span class="text-warning font-weight-bold"><?php echo displayMontant($nb_users,0,''); ?></span></p>	
-                    
-              <p class="text-center py-2">Membre en ligne</p>
-        </div>
-           </div>
+                    <p class="mb-0" style="font-size: 18px;">
+                        <span class="icofont-users-social text-warning mr-2"></span>
+                        <span class="text-warning font-weight-bold"><?php echo displayMontant($nbMbreActifs, 0, ''); ?></span>
+                    </p>
 
+                    <p class="text-center py-2">Membres en ligne</p>
+                </div>
             </div>
-        <div class="col-lg-4 col-md-4 col-sm-12">
-        <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="text-center">
-                        <img src="" alt="" srcset="">
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6">
-					<p class="mb-0" style="font-size: 18px;">
-						<span class="icofont-users text-warning mr-2"></span>
-						<span class="text-warning font-weight-bold"><?php echo displayMontant($nb_users,0,''); ?></span></p>
-                   
-           <p class="mb-0">Membres inscrits</p>
+
         </div>
-         </div>
-	 </div>
         <div class="col-lg-4 col-md-4 col-sm-12">
-        <div class="row">
+            <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="text-center">
                         <img src="" alt="" srcset="">
                     </div>
                 </div>
-			<div class="col-lg-6 col-md-6 col-sm-6">
-                
-					<p class="mb-0" style="font-size: 18px;">
-					<span class="icofont-gift text-warning mr-2"></span>
-                    <span class="text-warning font-weight-bold"><?php echo displayMontant($euros_stats,2,''); ?>€ </span></p>
-             
-				<p class="mb-0"> Cadeaux reversées  </p>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <p class="mb-0" style="font-size: 18px;">
+                        <span class="icofont-users text-warning mr-2"></span>
+                        <span class="text-warning font-weight-bold"><?php echo displayMontant($totalUsers, 0, ''); ?></span>
+                    </p>
+
+                    <p class="mb-0">Membres inscrits</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="text-center">
+                        <img src="" alt="" srcset="">
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+
+                    <p class="mb-0" style="font-size: 18px;">
+                        <span class="icofont-gift text-warning mr-2"></span>
+                        <span class="text-warning font-weight-bold"><?php echo displayMontant($totalAmountRevers, 2, ''); ?>€ </span>
+                    </p>
+
+                    <p class="mb-0"> Cadeaux reversées </p>
+                </div>
+            </div>
         </div>
     </div>
-	</div>
-		</div>
-	
-	<!-- logoPartner -->
+
+    <!-- logoPartner -->
 
     <div class="row smallogo">
         <div class="col-lg-1 col-sm-3">
-            <img src="<?=$Innerurllink?>/images/sponsors/wannads.png" alt="wannads" class="img-thumbnails border rounded">
+            <img src="<?= $Innerurllink ?>/images/sponsors/wannads.png" alt="wannads" class="img-thumbnails border rounded">
         </div>
         <div class="col-lg-1 col-sm-3">
-            <img src="<?=$Innerurllink?>/images/sponsors/adgatemedia.jpg" alt="adgatemedia" class="img-thumbnails border rounded"> 
+            <img src="<?= $Innerurllink ?>/images/sponsors/adgatemedia.jpg" alt="adgatemedia" class="img-thumbnails border rounded">
         </div>
         <div class="col-lg-1 col-sm-3">
-            <img src="<?=$Innerurllink?>/images/sponsors/offertoro.png" alt="offertoro" class="img-thumbnails border rounded">
+            <img src="<?= $Innerurllink ?>/images/sponsors/offertoro.png" alt="offertoro" class="img-thumbnails border rounded">
         </div>
         <div class="col-lg-1 col-sm-3">
-            <img src="<?=$Innerurllink?>/images/sponsors/MONLIX.png" alt="monlix" class="img-thumbnails border rounded">
+            <img src="<?= $Innerurllink ?>/images/sponsors/MONLIX.png" alt="monlix" class="img-thumbnails border rounded">
         </div>
         <div class="col-lg-1 col-sm-3">
-          <!--  <img src="<?=$Innerurllink?>/images/sponsors/awork.jpeg" alt="awork" class="img-thumbnails border rounded">  -->  
+            <!--  <img src="<?= $Innerurllink ?>/images/sponsors/awork.jpeg" alt="awork" class="img-thumbnails border rounded">  -->
         </div>
         <div class="col-lg-1 col-sm-3">
-          <!--  <img src="image/sponsors/adgatemedia.jpg" alt="adgatemedia" class="img-thumbnails border rounded"> -->
+            <!--  <img src="image/sponsors/adgatemedia.jpg" alt="adgatemedia" class="img-thumbnails border rounded"> -->
         </div>
         <div class="col-lg-1 col-sm-3">
-          <!-- <img src="image/sponsors/offertoro.jpg" alt="offertoro" class="img-thumbnails border rounded"> -->
+            <!-- <img src="image/sponsors/offertoro.jpg" alt="offertoro" class="img-thumbnails border rounded"> -->
         </div>
         <div class="col-lg-1 col-sm-3">
-          <!--  <img src="image/sponsors/adgatemedia.jpg" alt="adgatemedia" class="img-thumbnails border rounded"> -->
+            <!--  <img src="image/sponsors/adgatemedia.jpg" alt="adgatemedia" class="img-thumbnails border rounded"> -->
         </div>
         <div class="col-lg-1 col-sm-3">
-         <!--   <img src="image/sponsors/adgatemedia.jpg" alt="adgatemedia" class="img-thumbnails border rounded"> --> 
+            <!--   <img src="image/sponsors/adgatemedia.jpg" alt="adgatemedia" class="img-thumbnails border rounded"> -->
         </div>
         <div class="col-lg-1 col-sm-3">
-         <!--   <img src="image/sponsors/offerwall-adgatemedia.jpg" alt="adgatemedia" class="img-thumbnails border rounded"> -->
+            <!--   <img src="image/sponsors/offerwall-adgatemedia.jpg" alt="adgatemedia" class="img-thumbnails border rounded"> -->
         </div>
         <div class="col-lg-1 col-sm-3">
-         <!--   <img src="image/sponsors/offerwall-adgatemedia.jpg" alt="adgatemedia" class="img-thumbnails border rounded"> -->
+            <!--   <img src="image/sponsors/offerwall-adgatemedia.jpg" alt="adgatemedia" class="img-thumbnails border rounded"> -->
         </div>
         <div class="col-lg-1 col-sm-3">
-         <!--   <img src="image/sponsors/offerwall-adgatemedia.jpg" alt="adgatemedia" class="img-thumbnails border rounded"> -->
+            <!--   <img src="image/sponsors/offerwall-adgatemedia.jpg" alt="adgatemedia" class="img-thumbnails border rounded"> -->
         </div>
     </div>
-	
-</div>    
+
+</div>
 
 
 

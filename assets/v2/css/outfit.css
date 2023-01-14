@@ -9,7 +9,8 @@ if (in_array($_GET["page"], ["administration", "admin.php"]))
 }
 
 $Innerurllink = "./";
-$Innerurllink = "https://utilooservices.com/";
+$Innerurllink = "http://127.0.0.1/";
+/* $Innerurllink = "https://utilooservices.com/"; */
 include('./include/Mobile_Detect.php') ;
 
 $detect = new Mobile_Detect();

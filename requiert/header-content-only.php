@@ -46,4 +46,3 @@ if (isset($pdo) && isset($mbreHashId)){
 <body class="flex flex-col flex-auto flex-shrink-0 min-h-screen antialiased">
 
 */
-?>
