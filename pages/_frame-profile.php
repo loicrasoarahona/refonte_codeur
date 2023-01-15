@@ -13,6 +13,22 @@ $par = $req->fetch(PDO::FETCH_ASSOC);
 /* Submitting data */
 /*******************/
 
+
+$ident_verif = 0;
+$req = $pdo->prepare('SELECT id, nom, prenom, email, mdp, actif, banni, datelastco, level,ident_verif FROM users WHERE email=:email');
+$req->bindValue(":email",$_SESSION['email']);
+$req->execute();
+$result_req = $req->fetch(PDO::FETCH_OBJ);
+
+$_SESSION['ident_verif'] = intval($result_req->ident_verif);
+$ident_verif = intval($_SESSION['ident_verif']);
+if($ident_verif){
+    $mbreCodeVerif = 1;
+}else{
+	$mbreCodeVerif = 0;
+}
+
+
 $reponsError = $reponsConfirm = "";
 
 if (!empty($_POST['nom'])) { $post_nom = htmlspecialchars(addslashes($_POST['nom'])); } else { $post_nom = null; }
@@ -41,6 +57,7 @@ if (!empty($_POST['skrill'])) { $post_skrill = htmlspecialchars(addslashes($_POS
 
 
 if (!empty($_POST['code_verif'])) { $post_code_verif = htmlspecialchars(addslashes($_POST['code_verif'])); } else { $post_code_verif = null; }
+//if(!empty($_POST['profil_photo'])) {$post_profil_photo = htmlspecialchars(addslashes($_POST['profil_photo']));}else
 
 
 if (!empty($_POST['valid_ident']) && !empty($_FILES["fileToUpload"]["name"]) && !empty($_FILES["fileToUpload2"]["name"])) {
@@ -109,7 +126,7 @@ if (!empty($_POST['valid_ident']) && !empty($_FILES["fileToUpload"]["name"]) && 
 
         $reponsError = "Désolé, les documents n'ont pas été envoyés.";
 
-    // if everything is ok, try to upload file
+        // if everything is ok, try to upload file
 
     } else {
 
@@ -119,7 +136,7 @@ if (!empty($_POST['valid_ident']) && !empty($_FILES["fileToUpload"]["name"]) && 
 
             $pdo->exec("UPDATE users SET ident_recto = '".$target_file."', ident_verso = '".$target_file2."' WHERE id = '".$mbreId."'");
 
-            
+
 
             $mbreIdentRecto = $target_file;
 
@@ -136,8 +153,59 @@ if (!empty($_POST['valid_ident']) && !empty($_FILES["fileToUpload"]["name"]) && 
 }
 
 
+// update photo de profil
 
-if (!empty($_POST['submit_update'])) {
+//insertion et upload photo de profil
+//envoyer
+
+if(isset($_POST['envoyer'])){
+
+    //$numapp = $_POST['numap'];
+
+    if(isset($_FILES['photo_de_profil']) and $_FILES['photo_de_profil']['error'] == 0){
+
+        $profil_image = $_POST['photo_de_profil'];
+
+        $dossier = 'images/identites/';
+        $temp_name = $_FILES['photo_de_profil']['tmp_name'];
+        if(!is_uploaded_file($temp_name)){
+            exit("Fichier introuvable");
+        }
+        if($_FILES['fichier']['size'] >=1000000){
+            exit("Erreur, fichiers volumineux");
+        }
+
+        $infofichier =pathinfo( $_FILES['photo_de_profil']['name']);
+        $extension_upload = $infofichier['extension'];
+        $extension_upload = strtolower($extension_upload);
+
+        $extension_autorisee = array('png', 'jpeg', 'jpg', 'svg');
+        if(!in_array($extension_upload, $extension_autorisee)){
+            exit("Veuillez inserer une image avec extension autorisée (jpeg, jpg, png)");
+        }
+        $nom_photo = date('Y-m-d-s').'-'.$post_email.".".$extension_upload;
+        if(!move_uploaded_file($temp_name,$dossier.$nom_photo)){
+            // header("location:http://localhost/maxiconcour/doc");
+            exit("Problème dans le telechargement d'image, rééssayer");
+        }
+        $ph_name= $nom_photo;
+        $pdo->exec("UPDATE users SET profil_photo = '".$ph_name."' WHERE id = '".$mbreId."'");
+    }else{
+        $ph_name="inconnu.jpg";
+    }
+}
+//$req = $pdo->prepare('INSERT INTO users (profil_photo) VALUES (:profil_photo)');
+//$pdo->exec("UPDATE users SET profil_photo WHERE id = '".$mbreId."'");
+//$req->execute(array(
+//'profil_photo' => $ph_name
+//));
+
+
+
+
+
+
+if (!empty($_POST['submit_update']) and $ident_verif == 0) {
 
     $pdo->exec("UPDATE users SET 
     nom = '".$post_nom."', 
@@ -166,8 +234,8 @@ if (!empty($_POST['submit_update'])) {
     $mbrePays = $_POST['pays'];
     $mbreParrain = $post_parrain;
 
-    if ($post_parrain == 0 or $post_parrain == null){ 
-        $mbreParrain = 'Aucun'; 
+    if ($post_parrain == 0 or $post_parrain == null){
+        $mbreParrain = 'Aucun';
     } else {
         $sqlParrain = $pdo->query("SELECT * FROM users WHERE id = '".$post_parrain."'");
         $resultatParrain = $sqlParrain->fetch(PDO::FETCH_ASSOC);
@@ -187,7 +255,7 @@ if (!empty($_POST['submit_update_bank'])) {
 
     $pdo->exec("UPDATE users SET  iban = '".$post_iban."', swift = '".$post_swift."', paypal = '".$post_paypal."', skrill = '".$post_skrill."' WHERE id = '".$mbreId."'");
 
-    
+
 
     $mbreIban = $post_iban;
 
@@ -197,7 +265,7 @@ if (!empty($_POST['submit_update_bank'])) {
 
     $mbreSkrill = $post_skrill;
 
-    
+
 
     $reponsConfirm = 'Vos infomartion a bien été modifié.';
 
@@ -215,10 +283,7 @@ if (!empty($_POST['valid_profil'])) {
 
         $pdo->exec("UPDATE users SET code_verif = 1 WHERE id = '".$mbreId."'");
 
-        
-
         $reponsConfirm = 'Votre profil a bien été vérifié.';
-
         $mbreCodeVerif = 1;
 
     } else {
@@ -233,7 +298,17 @@ if (isset($_SESSION['id'])) {
     newNotifcations($_SESSION['id'], $reponsConfirm, $pdo);
 }
 
+
+
+
+//var_dump($ph_name);
+// $requette="INSERT INTO profils VALUES(`$ph_name`)";
+// $resultat=mysqli_query($link,$requette);
+//header('Location: affichage.php');
+//}
+
 ?>
+
 <section class="user-panel-body py-5">
     <div class="container">
         <div class="row">
@@ -259,7 +334,7 @@ if (isset($_SESSION['id'])) {
                                                     <span class="text-danger">*</span>
                                                 </label>
                                                 <div class="form-group">
-                                                    <input type="text" required="required" class="has-validation form-control" name="nom" value="<?php echo ucwords($mbreNom); ?>" placeholder="Entrez le nom de famille" aria-label="Entrez le nom de famille" aria-describedby="nom" data-msg="Veuillez entrer le nom de famille" data-error-class="u-has-error" data-success-class="u-has-success" <?php echo ($mbreCodeVerif == 1) ? 'readonly="readonly"' : ''; ?>>
+                                                    <input type="text" required="required" class="has-validation form-control" name="nom" value="<?=ucwords($mbreNom); ?>" placeholder="Entrez le nom de famille" aria-label="Entrez le nom de famille" aria-describedby="nom" data-msg="Veuillez entrer le nom de famille" data-error-class="u-has-error" data-success-class="u-has-success" <?=($mbreCodeVerif == 1) ? 'readonly="readonly"' : ''; ?>>
                                                 </div>
                                             </div>
                                         </div>
@@ -355,6 +430,18 @@ if (isset($_SESSION['id'])) {
                                         </div>
                                     </div>
 
+                                    <div class="py-2">
+                                        <label for="photo_de_profil">
+                                            Photo de profil
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="form-group">
+                                            <input type="file" required="required" class="has-validation form-control" name="photo_de_profil" placeholder="Choisir votre photo de profil" aria-label="Uploader une photo" aria-describedby="photo" data-msg="veuillez uploader une photo" data-error-class="u-has-error" data-success-class="u-has-sucess">
+                                        </div>
+
+                                    </div>
+
+
                                     <div class="row mt-1 b-2">
                                         <div class="col-sm-12">
                                             <div class="js-form-message">
@@ -378,7 +465,7 @@ if (isset($_SESSION['id'])) {
                                             else
                                             {
                                                 ?>
-                                                <button type="submit" class="btn btn-primary">Appliquer les modifications</button>
+                                                <button type="submit" class="btn btn-primary" name="envoyer">Appliquer les modifications</button>
                                                 <?php
                                             }
                                             ?>
@@ -450,120 +537,120 @@ if (isset($_SESSION['id'])) {
                                     </div>
                                 </div>
                             </form>
-                    <?php
-                    if ($mbreNom != '' && $mbrePrenom != '' && $mbreAdresse != '' && $mbreVille != '' && $mbreCodePostal != '')
-                    {
-                        if ($mbreCodeVerif != 0 && $mbreCodeVerif != 1)
-                        {
-                            ?>
-                            <div class="p-4">
-                                <h5 class="mb-0">Vérification du profil |  En attente</h5>
-                            </div>
-                            <hr class="m-0">
-                            <form action="" method="POST" class="js-validate" multiple="" enctype="multipart/form-data">
-                                <input type="hidden" name="valid_profil" value="1">
-                                <div class="p-4">
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="js-form-message">
-                                                <label id="code_verif" class="form-label">
-                                                    Entrez votre code ci-dessous :
-                                                    <span class="text-danger">*</span>
-                                                </label>
-                                                <div class="form-group">
-                                                    <input type="text" class="has-validation form-control" name="code_verif" value="" placeholder="Entrez votre code reçu ici" aria-label="Entrez votre code reçu ici" aria-describedby="code_verif" data-msg="Veuillez entrer votre code reçu ici" data-error-class="u-has-error" data-success-class="u-has-success">
+                            <?php
+                            if ($mbreNom != '' && $mbrePrenom != '' && $mbreAdresse != '' && $mbreVille != '' && $mbreCodePostal != '')
+                            {
+                                if ($mbreCodeVerif != 0 && $mbreCodeVerif != 1)
+                                {
+                                    ?>
+                                    <div class="p-4">
+                                        <h5 class="mb-0">Vérification du profil |  En attente</h5>
+                                    </div>
+                                    <hr class="m-0">
+                                    <form action="" method="POST" class="js-validate" multiple="" enctype="multipart/form-data">
+                                        <input type="hidden" name="valid_profil" value="1">
+                                        <div class="p-4">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="js-form-message">
+                                                        <label id="code_verif" class="form-label">
+                                                            Entrez votre code ci-dessous :
+                                                            <span class="text-danger">*</span>
+                                                        </label>
+                                                        <div class="form-group">
+                                                            <input type="text" class="has-validation form-control" name="code_verif" value="" placeholder="Entrez votre code reçu ici" aria-label="Entrez votre code reçu ici" aria-describedby="code_verif" data-msg="Veuillez entrer votre code reçu ici" data-error-class="u-has-error" data-success-class="u-has-success">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-3 mb-4">
+                                                <div class="col-sm-12 text-right">
+                                                    <button type="submit" class="btn btn-primary">Valider mon profil</button>
                                                 </div>
                                             </div>
                                         </div>
+                                    </form>
+                                    <?php
+                                }
+                                elseif ($mbreCodeVerif == 1)
+                                {
+                                    ?>
+                                    <div class="p-4 text-center">
+                                        <div class="alert alert-success rounded-pill">Vérification du profil | Validé</div>
                                     </div>
-                                    <div class="row mt-3 mb-4">
-                                        <div class="col-sm-12 text-right">
-                                            <button type="submit" class="btn btn-primary">Valider mon profil</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                            <?php
-                        }
-                        elseif ($mbreCodeVerif == 1)
-                        {
+                                    <?php
+                                }
+                            }
                             ?>
-                            <div class="p-4 text-center">
-                                <div class="alert alert-success rounded-pill">Vérification du profil | Validé</div>
-                            </div>
-                            <?php
-                        }
-                    }
-                    ?>
 
                             <div class="p-4">
                                 <h5 class="mb-0">Vérification d'identité à faire</h5>
                             </div>
                             <hr class="m-0">
-                    <?php
-                        if ($mbreIdentRecto == '' && $mbreIdentVerso == '' && $mbreIdentVerif == 0)
-                        {
-                            ?>
-                            <form action="" method="POST" class="js-validate" multiple="" enctype="multipart/form-data">
-                                <input type="hidden" name="valid_ident" value="1">
-                                <div class="p-4">
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="js-form-message">
-                                                <label id="labelFileToUpload" class="form-label">
-                                                    Copie Recto de votre Carte d'identité :
-                                                    <span class="text-danger">*</span>
-                                                </label>
-                                                <div class="custom-file">
-                                                    <input type="file" id="fileToUpload" name="fileToUpload"  class="custom-file-input" aria-describedby="Copie Recto de votre Carte d'identité">
-                                                    <label class="custom-file-label" for="fileToUpload">Copie Recto de votre Carte d'identité</label>
+                            <?php
+                            if ($mbreIdentRecto == '' && $mbreIdentVerso == '' && $mbreIdentVerif == 0)
+                            {
+                                ?>
+                                <form action="" method="POST" class="js-validate" multiple="" enctype="multipart/form-data">
+                                    <input type="hidden" name="valid_ident" value="1">
+                                    <div class="p-4">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="js-form-message">
+                                                    <label id="labelFileToUpload" class="form-label">
+                                                        Copie Recto de votre Carte d'identité :
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="custom-file">
+                                                        <input type="file" id="fileToUpload" name="fileToUpload"  class="custom-file-input" aria-describedby="Copie Recto de votre Carte d'identité">
+                                                        <label class="custom-file-label" for="fileToUpload">Copie Recto de votre Carte d'identité</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="js-form-message">
+                                                    <label id="labelFileToUpload" class="form-label">
+                                                        Copie Verso de votre Carte d'identité :
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="custom-file">
+                                                        <input type="file" id="fileToUpload2" name="fileToUpload2"  class="custom-file-input" aria-describedby="Copie Verso de votre Carte d'identité">
+                                                        <label class="custom-file-label" for="fileToUpload2">Copie Verso de votre Carte d'identité</label>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6">
-                                            <div class="js-form-message">
-                                                <label id="labelFileToUpload" class="form-label">
-                                                    Copie Verso de votre Carte d'identité :
-                                                    <span class="text-danger">*</span>
-                                                </label>
-                                                <div class="custom-file">
-                                                    <input type="file" id="fileToUpload2" name="fileToUpload2"  class="custom-file-input" aria-describedby="Copie Verso de votre Carte d'identité">
-                                                    <label class="custom-file-label" for="fileToUpload2">Copie Verso de votre Carte d'identité</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
 
-                                    <div class="row mt-3 mb-4">
-                                        <div class="col-sm-12 text-right">
-                                            <button type="submit" class="btn btn-primary">Envoyer mes documents</button>
+                                        <div class="row mt-3 mb-4">
+                                            <div class="col-sm-12 text-right">
+                                                <button type="submit" name="envoyer" class="btn btn-primary">Envoyer mes documents</button>
+                                            </div>
                                         </div>
                                     </div>
+                                </form>
+                                <?php
+                            }
+                            elseif ($mbreIdentRecto != '' && $mbreIdentVerso != '' && $mbreIdentVerif == 0)
+                            {
+                                ?>
+                                <div class="p-4 text-center">
+                                    <div class="alert alert-warning rounded-pill">Vérification d'identité | En attente</div>
                                 </div>
-                            </form>
-                            <?php
-                        }
-                        elseif ($mbreIdentRecto != '' && $mbreIdentVerso != '' && $mbreIdentVerif == 0)
-                        {
-                            ?>
-                            <div class="p-4 text-center">
-                                <div class="alert alert-warning rounded-pill">Vérification d'identité | En attente</div>
-                            </div>
-                            <?php
-                        }
-                        else
-                        {
+                                <?php
+                            }
+                            else
+                            {
                             ?>
                             <div class="p-4 text-center">
                                 <div class="alert alert-success rounded-pill">Vérification d'identité | Validé</label>
+                                </div>
+                                <?php
+                                }
+                                ?>
                             </div>
-                            <?php
-                        }
-                        ?>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 </section>

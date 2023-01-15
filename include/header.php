@@ -2,12 +2,12 @@
 <html class="no-js" lang="fr">
 <head>
   <meta charset="utf-8">
-  <title>Revenu Cash</title>
+  <title>Gifthunter</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
 
     <!-- Favicon Icon -->
-    <link rel="icon" type="image/png" href="<?php echo $Innerurllink; ?>assets/v2/images/logo.svg">
+    <link rel="icon" type="image/png" href="<?=$Innerurllink; ?>assets/v2/images/logo.svg">
     <!-- Bootstrap core CSS -->
     <link href="<?php echo $Innerurllink; ?>assets/v2/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Material Design Icons -->
@@ -22,7 +22,8 @@
     <!-- Owl Carousel -->
     <link rel="stylesheet" href="<?php echo $Innerurllink; ?>assets/v2/vendor/owl-carousel/owl.carousel.css">
     <link rel="stylesheet" href="<?php echo $Innerurllink; ?>assets/v2/vendor/owl-carousel/owl.theme.css">
-
+    <script src="<?php echo $Innerurllink; ?>assets/v2/vendor/jquery/jquery.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style type="text/css">

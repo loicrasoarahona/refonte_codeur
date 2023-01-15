@@ -2,7 +2,6 @@
 
 
 <!-- Bootstrap core JavaScript -->
- <script src="<?php echo $Innerurllink; ?>assets/v2/vendor/jquery/jquery.min.js"></script>
  <script src="<?php echo $Innerurllink; ?>assets/v2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
  <!-- select2 Js -->
  <script src="<?php echo $Innerurllink; ?>assets/v2/vendor/select2/js/select2.min.js"></script>
@@ -10,7 +9,7 @@
  <script src="<?php echo $Innerurllink; ?>assets/v2/vendor/owl-carousel/owl.carousel.js"></script>
  <!-- Custom -->
  <script src="<?php echo $Innerurllink; ?>assets/v2/js/custom.js"></script>
- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
 
  <?php if ( !isset($_SESSION["id"]) ) { ?>

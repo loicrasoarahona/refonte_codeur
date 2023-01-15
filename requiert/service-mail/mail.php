@@ -7,9 +7,9 @@ require_once $_ROOT . '/requiert/service-mail/MAIL/SMTP.php';
 
 define("_MAIL_HOST_", "smtp.zoho.eu");
 define("_MAIL_PORT_", 587);
-define("_MAIL_USER_", "webmaster@maxiconcour.com");
-define("_MAIL_FROM_", "Revenu Cash");
-define("_MAIL_PASSWORD_", "Cameron12300@");
+define("_MAIL_USER_", "webmaster@gifthunter.fr");
+define("_MAIL_FROM_", "Gifthunter");
+define("_MAIL_PASSWORD_", "Timo12300@");
 
 
  class MailAction 
@@ -63,7 +63,7 @@ define("_MAIL_PASSWORD_", "Cameron12300@");
                 return false;
             }
         }
-        function sendSMTP($email,$subjet,$message,$attachment = false)
+        function sendSMTP($email,$subjet,$message,$attachment = false,$rep_email,$rep)
         {            
             $mail = new PHPMailer;
             $mail->IsSMTP();
@@ -75,7 +75,9 @@ define("_MAIL_PASSWORD_", "Cameron12300@");
             $mail->SMTPSecure = 'TLS';
             $mail->From = _MAIL_USER_;
             $mail->FromName = _MAIL_FROM_;
-            $mail->CharSet = "UTF-8"; 
+            $mail->CharSet = "UTF-8";
+            $mail->ClearReplyTos();
+            $mail->addReplyTo($rep_email, $rep);
             $email = gettype($email)=="array"?$email:[$email]; $only_gmail = true;
             for ($i=0; $i < count($email); $i++) { 
                 $mail->AddAddress($email[$i]);

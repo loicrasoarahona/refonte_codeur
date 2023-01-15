@@ -9,9 +9,7 @@
 	$vc_title = $_GET['vc_title'];
 	$ip = $_GET['session_ip'];
 
-   if ($status == 1)
-		{
-		
+    
         $tab = explode("-", $sub_id); 
 		$uid = $tab[0];
 
@@ -24,11 +22,10 @@
 			$idMembre = $dones_user['hashId'];
 
 	
-       $pdo->exec("INSERT INTO `histo_offers` (`id`, `idUser`, `offerwall`, `idt`, `remuneration`, `date`, `dateUsTime`, `data`, `etat`, `ip`) VALUES ('', '".$idMembre."', 'AdGate Media', '".$montantRev."', '".date('d/m/Y à H:i:s')."', '".date('Y-m-d H:i:s')."', ".$vc_title."', '".$data."', 'En attente', '".$ip."')");
-
+      $pdo->exec("INSERT INTO `histo_offers` (`id`, `idUser`, `offerwall`, `idt`, `remuneration`, `date`, `dateUsTime`, `data`, `etat`, `ip`) VALUES ('', '".$idMembre."', 'AdGate Media', '".$vc_title."', '".$montantRev."', '".date('d/m/Y à H:i:s')."', '".date('Y-m-d H:i:s')."', '".$data."', 'En attente', '".$ip."')");
 		
 
 		echo 1;
-		}
-		}
+		
+		
 ?>

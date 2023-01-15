@@ -7,9 +7,9 @@ require_once $_ROOT . '/requiert/service-mail/MAIL/SMTP.php';
 
 define("_MAIL_HOST_", "smtp.zoho.eu");
 define("_MAIL_PORT_", 587);
-define("_MAIL_USER_", "webmaster@maxiconcour.com");
-define("_MAIL_FROM_", "Revenu Cash");
-define("_MAIL_PASSWORD_", "Cameron12300@");
+define("_MAIL_USER_", "webmaster@gifthunter.fr");
+define("_MAIL_FROM_", "gifthunter");
+define("_MAIL_PASSWORD_", "Timo12300@");
 
 
  class MailAction 

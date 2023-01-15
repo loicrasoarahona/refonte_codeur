@@ -3,29 +3,28 @@
 if($page_name == "index"){
 ?>
     <div class="page-header section-rotate position-relative">
-        <div class="section-inner bg-gradient-primary"></div>
+
+        <div class="section-inner" style="background-color: #8748c2!important;"></div>
 
         <section class="middle-nav">
             <nav class="navbar navbar-expand-lg navbar-dark bg-none p-0">
                 <div class="container">
-                    <a class="navbar-brand" href="<?php echo $base_url;?>index.html"><img class="img-fluid" src="<?php echo $base_url.'assets/v2/images/logo167x89.png'; ?>"></a>
+                    <a class="navbar-brand" href="<?php echo $base_url;?>index.html"><img class="img-fluid" src="<?php echo $base_url.'assets/v2/images/Logo-blanc.png'; ?>" class="img-fluid" style="height: 80px!important;"></a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarText">
-                        <ul class="navbar-nav mx-auto">
+                        <!--<ul class="navbar-nav mx-auto">
                             <li class="nav-item active">
                                 <a class="nav-link" href="https://help.earnably.com/">Help <span class="sr-only">(current)</span></a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">A propos</a>
                             </li>
-
-                        </ul>
-
+                        </ul>-->
                         <?php if(!empty($_SESSION["id"])) {
                             ?>
-                            <nav class="navbar navbar-expand-lg  navbar-dark bg-none p-0">
+                            <nav class="navbar navbar-expand-lg  navbar-dark bg-none p-0 ml-auto">
                                 <ul class="navbar-nav ml-auto nav-user ml-md-0">
                                     <li class="nav-item dropdown no-arrow badge-top">
                                         <?php
@@ -104,22 +103,22 @@ if($page_name == "index"){
                                             <i class="icofont-user-suited"></i> <?php echo strtoupper($_SESSION["name"]); ?>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                                            <a class="dropdown-item" href="<?php echo $base_url;?>dashboard"><i class="icofont-home"></i> Dashboard</a>
-                                            <a class="dropdown-item" href="<?php echo $base_url;?>profile"><i class="icofont-user-alt-2"></i> Modifier profil</a>
-                                            <a class="dropdown-item" href="<?php echo $base_url;?>missions"><i class="icofont-money-bag"></i> Gagner de l'argent</a>
-                                            <a class="dropdown-item" href="<?php echo $base_url;?>offrewalls"><i class="icofont-slidshare"></i> Offre mur nouveau</a>
-                                            <a class="dropdown-item" href="<?php echo $base_url; ?>coupons"><i class="icofont-ticket"></i> Coupons</a>
-                                            <a class="dropdown-item" href="<?php echo $base_url;?>add-commande"><i class="icofont-bank"></i> Paiement</a>
-                                            <a class="dropdown-item" href="<?php echo $base_url; ?>commandes"><i class="icofont-sub-listing"></i> Mes commandes</a>
-                                            <a class="dropdown-item" href="<?php echo $base_url; ?>traces"><i class="icofont-bear-tracks"></i> Mes participations</a>
+                                            <a class="dropdown-item" href="<?= $base_url;?>dashboard"><i class="icofont-home"></i> Dashboard</a>
+                                            <a class="dropdown-item" href="<?= $base_url;?>profile"><i class="icofont-user-alt-2"></i> Modifier profil</a>
+                                            <a class="dropdown-item" href="<?= $base_url;?>missions"><i class="icofont-money-bag"></i> Gagner de l'argent</a>
+                                            <a class="dropdown-item" href="<?= $base_url;?>offrewalls"><i class="icofont-slidshare"></i> Offre mur nouveau</a>
+                                            <a class="dropdown-item" href="<?= $base_url; ?>coupons"><i class="icofont-ticket"></i> Coupons</a>
+                                            <a class="dropdown-item" href="<?= $base_url;?>add-commande"><i class="icofont-bank"></i> Paiement</a>
+                                            <a class="dropdown-item" href="<?= $base_url; ?>commandes"><i class="icofont-sub-listing"></i> Mes commandes</a>
+                                            <a class="dropdown-item" href="<?= $base_url; ?>traces"><i class="icofont-bear-tracks"></i> Mes participations</a>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="<?php echo $base_url;?>logout"><i class="icofont-logout"></i> Se déconnecter</a>
+                                            <a class="dropdown-item" href="<?= $base_url;?>logout"><i class="icofont-logout"></i> Se déconnecter</a>
                                         </div>
                                     </li>
                                 </ul>
                             </nav>
                         <?php }else{ ?>
-                            <span class="navbar-text">
+                            <span class="navbar-text ml-auto">
                                 <a href="#" class="btn btn-light-white btn-sm rounded-pill generator-bg" data-super-toggle="modal" data-target="#registerModal"><i class="icofont-cart"></i> Inscription</a>
                                 <a href="#" class="btn btn-light-white btn-sm rounded-pill" data-super-toggle="modal" data-target="#loginModal"><i class="icofont-cart"></i> Se connecter</a>
                             </span>
@@ -129,20 +128,45 @@ if($page_name == "index"){
                 </div>
             </nav>
         </section>
-        <section class="pt-5 pb-5 homepage-search-block position-relative">
+        <section class="pt-5 pb-5 homepage-search-block position-relative bg-banner">
+			
             <div class="container">
                 <div class="row">
                     <div class="col-md-8">
                         <div class="homepage-search-title">
                             <h1 class="mb-3 text-white text-shadow font-weight-bold">Récompenses numériques et cartes-cadeaux simplifiées</h1>
-                            <h5 class="mb-5 text-white text-shadow font-weight-normal">Gagnez des récompenses instantanées en accomplissant des tâches, en regardant des vidéos et en répondant à des sondages. <b>C'est si facile!</b></h5>
+                            <h5 class="mb-5 text-white text-shadow font-weight-normal">Gagnez des récompenses instantanées en accomplissant des tâches, en regardant des vidéos et en répondant à des sondages. <b>C'est si facile !</b></h5>
                         </div>
                         <!-- <h6 class="mb-0 mt-1 text-white text-shadow font-weight-normal">Texte ici</h6> -->
                     </div>
                     <div class="col-md-4">
-                        <img src="<?php echo $Innerurllink; ?>assets/v2/images/banner.svg" class="img-fluid">
+                        <img src="<?php echo $Innerurllink; ?>assets/v2/images/bg-banner-img-ok.png" class="img-fluid" style="height: 270px!important; margin-top: -40px!important;">
                     </div>
                 </div>
+				<div class="row my-3">
+					<div class="col-lg-4 col-ms-6">
+						<div class="text-center">
+							<img src="<?php echo $Innerurllink; ?>assets/v2/images/bon-plan.png" class="img-fluid py-2" style="height: 90px!important;">
+						</div>
+						<p class="text-center text-light">Achetez en ligne</p>	
+					</div>
+					<div class="col-lg-4 col-ms-6">
+							<div class="text-center">
+								<img src="<?php echo $Innerurllink; ?>assets/v2/images/acheter-en-ligne.png" class="img-fluid py-2" style="height: 90px!important;">
+							</div>
+						<p class="text-center text-light">Profitez des bons plans</p>
+					</div>
+					<div class="col-lg-4 col-ms-6">
+								<div class="text-center">
+									<img src="<?php echo $Innerurllink; ?>assets/v2/images/repondez-aux-sondages.png" class="img-fluid py-2" style="height: 90px!important;">
+								</div>
+						<p class="text-center text-light">Répondez aux sondages</p>
+					</div>
+				</div>
+				<div class="text-center py-3">
+
+					<a href="#" class="btn btn-warning mx-auto text-light rounded btncm" data-super-toggle="modal" data-target="#registerModal" style="background-color: #ff8414!important; border: none!important; border-radius: 20px!important;">Commencer maintenant</a>
+				</div>
             </div>
         </section>
     </div>
@@ -152,8 +176,8 @@ if($page_name == "index"){
 }
 ?>
 
-
 <!-- messaging box modal -->
+
 <div class="modal fade" id="msgbox-modal" role="dialog" aria-labelledby="msgbox-modal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content" id="show-message-box">
@@ -162,6 +186,7 @@ if($page_name == "index"){
 </div>
 
 <!-- login modal -->
+
 <div class="modal fade" id="loginModal" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -346,5 +371,7 @@ if($page_name == "index"){
         </div>
     </div>
 </div>
+
+
 
 

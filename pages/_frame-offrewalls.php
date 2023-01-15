@@ -36,28 +36,19 @@ $offers = $dataOffers->offer;
                                     ?>
                                     <div class="col-xl-4 col-sm-6 mb-4">
                                         <div class="stor-card custom-card shadow-sm h-100" data-toggle="modal" data-target="#offrewall_<?php echo $offer->id; ?>">
-                                            <div class="custom-card-image">
+                                           <div class="custom-card-image">
                                                 <a href="#">
-                                                    <img class="img-fluid item-img" src="<?php echo $base_url . $offer->image; ?>">
-                                                    <?php if ($offer->premimum) { ?>
+                                                   <img class="img-fluid item-img" src="<?php echo $base_url . $offer->image; ?>">
+                                                     <?php if ($offer->premimum) { ?>
                                                     <div class="member-plan"><span class="badge badge-gold">Primum Member</span></div>
                                                     <?php } ?>
-                                                </a>
+                                                </a> 
 
                                                 <div class="button-g-btn button-g-btn-up">
-                                                    <img class="img-fluid" src="<?php echo $base_url . $offer->logo; ?>">
-                                                    <span><?php echo $offer->name; ?></span>
-                                                </div>
+                                                    
+                                              
                                             </div>
-                                            <div class="p-3 pt-4">
-                                                <div class="custom-card-body">
-                                                    <h6 class="mb-3"><a class="text-black" href="#"><?php echo substr($offer->description, 0, 25); ?></a></h6>
-                                                </div>
-
-                                                <div class="mb-0">
-                                                    <button class="btn btn-outline-danger btn-block" type="button" data-toggle="modal" data-target="#offrewall_<?php $offer->id; ?>">Participer</button>
-                                                </div>
-                                            </div>
+										</div>
                                         </div>
                                     </div>
                                     <!-- Modal -->

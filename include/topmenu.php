@@ -3,22 +3,9 @@
         <nav class="navbar navbar-expand-lg navbar-dark bg-none p-0">
             <div class="container">
                 <?php $url = (empty($_SESSION["id"])) ? $base_url.'index.html' : $base_url.'dashboard'; ?>
-                <a class="navbar-brand" href="<?php echo $url;?>"><img class="img-fluid" src="<?php echo $base_url.'assets/v2/images/logo167x89.png'; ?>"></a>
+                <a class="navbar-brand" href="<?=$url;?>"><img class="img-fluid" src="<?=$base_url.'assets/v2/images/Logo-blanc.png'; ?>"></a>
                 <div class="collapse navbar-collapse" id="navbarText">
-                    <ul class="nav-menu navbar-nav mx-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="<?php echo $url;?>">Acceuil <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="<?php echo $base_url;?>contact.html">Contact</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="<?php echo $base_url;?>aide.html">Aide & FAQ</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="<?php echo $base_url;?>a-propos.html">À propos de nous</a>
-                        </li>
-                    </ul>
+                    
                 </div>
                 <?php
                 // if(!$isMobile)

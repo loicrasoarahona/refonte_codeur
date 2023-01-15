@@ -9,7 +9,7 @@
 // sendemail($to,$msg,$sujet,$rep);
 
 // send mail function !!
-function sendemail($to,$to_name,$msg,$msg_txt,$sujet,$rep,$CMPID="0",$FromName="GESTION DES MEMBRES",$ReplyName="GESTION DES MEMBRES",$mail="webmaster@maxiconcour.com")
+function sendemail($to,$to_name,$msg,$msg_txt,$sujet,$rep,$CMPID="0",$FromName="GESTION DES MEMBRES",$ReplyName="GESTION DES MEMBRES",$mail="webmaster@gifthunter.fr")
 {
     if (!filter_var($to, FILTER_VALIDATE_EMAIL)) {
         return "Erreur envoi mail";
@@ -19,8 +19,8 @@ function sendemail($to,$to_name,$msg,$msg_txt,$sujet,$rep,$CMPID="0",$FromName="
     $curl = curl_init();
     $params = [
         "sender" => [
-            "name" => "MAXICONCOUR",
-            "email" => "webmaster@maxiconcour.com"
+            "name" => "gifthunter",
+            "email" => "webmaster@gifthunter.fr"
         ],
         "to" => [
             [

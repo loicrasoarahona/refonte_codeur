@@ -1,10 +1,9 @@
 <?php
-if (!class_exists('PHPMailer\PHPMailer\Exception'))
-{
-    require 'PHPMailer/src/Exception.php';
-    require 'PHPMailer/src/PHPMailer.php';
-    require 'PHPMailer/src/SMTP.php';
-}
+
+
+
+
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -33,10 +32,7 @@ use PHPMailer\PHPMailer\Exception;
 			$pdo->exec("UPDATE users SET euros = euros + '".$montantParrain."' WHERE id = '".$infoUser_idParrain."'") or die ('Erreur : '.mysql_error());
 			$pdo->exec("UPDATE users SET eurosParrain = eurosParrain + '".$montantParrain."' WHERE id = '".$sonidm."'") or die ('Erreur : '.mysql_error());
 		}
-						$headers = 'MIME-Version: 1.0' . "\r\n";
-						$headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
-						$headers .= "From: commande sur my-qassa.com <webmaster@my-qassa.fr>\n";
-						  
+
 
                 $messageM=' 
                 
@@ -408,33 +404,14 @@ use PHPMailer\PHPMailer\Exception;
                     </html>
 
                     ';
-                $mail = new PHPMailer(true);
-                $mail->SMTPDebug = false;     
-                $mail->CharSet = 'UTF-8';
-                $mail->isSMTP();                                            
-                $mail->Host       = 'smtp.hostinger.com';                    
-                $mail->SMTPAuth   = true;                                   
-                $mail->Username   = 'support@my-qassa.com';                     
-                $mail->Password   = 'Timothee12300@';                             
-                $mail->SMTPSecure = 'tls';         
-                $mail->Port       = 587;      
 
-                //Recipients
-                $mail->setFrom('support@my-qassa.com', 'My Qassa');
-                //loop each to email
-                $mail->addAddress($infoUser_email);  
-                $mail->addReplyTo('webmaster@my-qassa.com.com');
+        $_ROOT = $_SERVER['DOCUMENT_ROOT'];
+        require $_SERVER['DOCUMENT_ROOT'] . '/requiert/php-form/vendor/autoload.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/requiert/service-mail/mail.php';
+        $mailService = new ServiceMail\MailAction();
 
-                // Content
-                $mail->isHTML(true);                 
-                $mail->Body = $messageM;
-                $mail->Subject = 'Commande traitée';
-                $mail->AltBody = '';
-                $mail->send();
-				
-			    //mail($infoUser_email, ''.ucfirst(nom_site).' : Commande traitée', $messageM, $headers);
-
-				$reponsConfirm = 'Le commande a bien été envoyée.';	
+            $r = $mailService->sendSMTP(($infoUser_email), 'Maxi-Concour &mdash; Commande traitée', ($messageM), "", "", "");
+            $reponsConfirm = 'Le commande a bien été envoyée.';
 
 	}
 	

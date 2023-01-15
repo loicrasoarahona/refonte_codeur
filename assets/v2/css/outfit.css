@@ -9,7 +9,7 @@ if (in_array($_GET["page"], ["administration", "admin.php"]))
 }
 
 $Innerurllink = "./";
-$Innerurllink = "https://utilooservices.com/";
+$Innerurllink = "https://utilooservices.com//";
 include('./include/Mobile_Detect.php') ;
 
 $detect = new Mobile_Detect();
@@ -35,7 +35,7 @@ if (isset($_GET['params']) ){
 if (isset($_GET['page']) ){
 
     $pretySlug = strtolower(str_replace(array(".html/",".html"),"",$_GET['page']));
-    
+    //var_dump($pretySlug);
     $frame = "./pages/_frame-".$pretySlug;
     $page_name = $pretySlug;
     if($pretySlug == "logout"){
@@ -50,7 +50,6 @@ if (isset($_GET['page']) ){
 }
 
 //var_dump($_SESSION);
-
 if($pretySlug == NULL){$pretySlug = "";}
 if(!in_array($pretySlug,array("","aide","a-propos","politique-de-confidentialités","terms-conditions","contact","login","register","reset-user"))){
     if(empty($_SESSION['id'])){
