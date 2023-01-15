@@ -18,5 +18,3 @@ if (isset($pdo) && isset($mbreHashId)){
     $totalMissionsAttente = $totalMissionsAttente['remuneration'];
 
     }
-
-?>

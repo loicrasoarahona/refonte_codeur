@@ -2,17 +2,20 @@
 $_ROOT = $_SERVER['DOCUMENT_ROOT'];
 
 include($_ROOT . '/requiert/bddConnect.php');
+require_once($_ROOT . '/requiert/utils.php');
 
 if (date_default_timezone_set('Europe/Stockholm') == 0) {
 	print "<!-- Error uknown timezone using UTC as default -->\n";
 	date_default_timezone_set('UTC');
 }
 
-if (isset($_GET['parrain'])) {$_SESSION['idParrain'] = $_GET['parrain'];}
+if (isset($_GET['parrain'])) {
+	$_SESSION['idParrain'] = $_GET['parrain'];
+}
 
-if (!function_exists("code"))
-{
-	function code($longueur) {
+if (!function_exists("code")) {
+	function code($longueur)
+	{
 		$chaine_code = '';
 		$chaine = "123456789AZERTYUIOPQSDFGHJKLMWXCVBNazertyuiopqsdfghjklmwxcvbn";
 		for ($i = 0; $i < $longueur; $i++) {
@@ -22,35 +25,35 @@ if (!function_exists("code"))
 	}
 }
 
-if (!function_exists("displayMontant"))
-{
-	function displayMontant($montant, $chiffres_apres_virgule = 2, $symbole = "?") {
+if (!function_exists("displayMontant")) {
+	function displayMontant($montant, $chiffres_apres_virgule = 2, $symbole = "?")
+	{
 		return number_format($montant, $chiffres_apres_virgule, ',', ' ') . "" . $symbole;
 	}
 }
 
-if (!function_exists("Color"))
-{
-	function Color($e){
-	    if ($e === 'Validé') {
-	       echo '<i class="icofont-star text-success">Validée</i>
+if (!function_exists("Color")) {
+	function Color($e)
+	{
+		if ($e === 'Validé') {
+			echo '<i class="icofont-star text-success">Validée</i>
 	            </div>';
-	            
-	    } else if ($e === 'En attente') {
-	        echo '<i class="icofont-star text-warning"></i>En attente</i>
+		} else if ($e === 'En attente') {
+			echo '<i class="icofont-star text-warning"></i>En attente</i>
 	            </div>';
-	    } else if ($e === 'Refusé') {
-	        echo '<i class="icofont-star text-danger"></i>Refusée
+		} else if ($e === 'Refusé') {
+			echo '<i class="icofont-star text-danger"></i>Refusée
 	              </div>';
-	    } else if ($e === 'En cours') {
-	        echo '<i class="icofont-star text-time"></i>En cours
+		} else if ($e === 'En cours') {
+			echo '<i class="icofont-star text-time"></i>En cours
 	              </div>';
-	    }
-
+		}
 	}
 }
 
-if (isset($_GET['parrain']) OR isset($_GET['PARRAIN'])) {$_SESSION['idParrain'] = $_GET['parrain'];}
+if (isset($_GET['parrain']) or isset($_GET['PARRAIN'])) {
+	$_SESSION['idParrain'] = $_GET['parrain'];
+}
 
 include $_ROOT . "/geoloc/geoipcity.inc";
 include $_ROOT . "/geoloc/geoipregionvars.php";
@@ -68,6 +71,11 @@ $totalAmountRevers = $pdo->query("SELECT SUM(montant) AS 'amount' FROM gagnants"
 $totalAmountRevers = $totalAmountRevers->fetch(PDO::FETCH_ASSOC);
 $totalAmountRevers = $totalAmountRevers['amount'];
 if (isset($_SESSION['id'])) {
+
+	//enregistrer l'activité et récupérer les membres actifs
+	saveUserActivity($_SESSION['id'], $pdo);
+	$nbMbreActifs = getMembresActifs($pdo);
+
 	$sql = $pdo->query("SELECT * FROM users WHERE id = '" . addslashes($_SESSION['id']) . "'");
 	$resultat = $sql->fetch(PDO::FETCH_ASSOC);
 	$mbreId = addslashes(htmlentities($resultat['id']));
@@ -103,7 +111,9 @@ if (isset($_SESSION['id'])) {
 	$mbreNewsletter = addslashes(htmlentities($resultat['news']));
 	$date_Inscription = addslashes(htmlentities($resultat['date_Inscription']));
 
-	if ($mbreIdParrain == 0) {$mbreParrain = 'Aucun';} else {
+	if ($mbreIdParrain == 0) {
+		$mbreParrain = 'Aucun';
+	} else {
 		$sqlParrain = $pdo->query("SELECT * FROM users WHERE id = '" . $mbreIdParrain . "'");
 		$resultatParrain = $sqlParrain->fetch(PDO::FETCH_ASSOC);
 		$parrainNom = addslashes(htmlentities($resultatParrain['nom']));
@@ -118,7 +128,6 @@ if (isset($_SESSION['id'])) {
 	$totalAmoundAttente = $pdo->query("SELECT SUM(remuneration) AS 'montant' FROM histo_offers WHERE idUser = '" . $mbreHashId . "' AND etat = 'En attente'");
 	$totalAmoundAttente = $totalAmoundAttente->fetch(PDO::FETCH_ASSOC);
 	$totalAmoundAttente = $totalAmoundAttente['montant'];
-	
 }
 
 if (isset($_GET['seenpmessage'])) {
@@ -132,7 +141,6 @@ if (isset($_SESSION['pmessage']) && explode("/", $_SERVER['REQUEST_URI'])[(sizeo
 }
 
 if (isset($_COOKIE['id_user']) && $_COOKIE['id_user'] != 0 && !isset($_SESSION['id'])) {
-	
 }
 
 
@@ -145,9 +153,10 @@ $all_InfosConcours = $sql_InfosConcours->fetchAll(PDO::FETCH_ASSOC);
 foreach ($all_InfosConcours as $dones_InfosConcours) {
 	$idConcours = $dones_InfosConcours['id'];
 
-	if ($idConcours == 3) {$concoursParrainagesOn = 1;}
-	if ($idConcours == 4) {$concoursOffresOn = 1;}
+	if ($idConcours == 3) {
+		$concoursParrainagesOn = 1;
+	}
+	if ($idConcours == 4) {
+		$concoursOffresOn = 1;
+	}
 }
-
-
-?>
