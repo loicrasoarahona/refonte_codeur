@@ -50,7 +50,7 @@
 
 	                    <p class="mb-0" style="font-size: 18px;">
 	                        <span class="icofont-gift text-warning mr-2"></span>
-	                        <span class="text-warning font-weight-bold"><?= displayMontant($totalAmountRevers['montant'], 2, ' €'); ?></span>
+	                        <span class="text-warning font-weight-bold"><?= displayMontant($totalAmountRevers, 2, ' €'); ?></span>
 	                    </p>
 
 	                    <p class="mb-0"> Cadeaux reversées </p>
@@ -68,7 +68,7 @@
 	                <div class="col-lg-6 col-md-6 col-sm-6">
 	                    <p class="mb-0" style="font-size: 18px;">
 	                        <span class="icofont-users text-warning mr-2"></span>
-	                        <span class="text-warning font-weight-bold"><?= displayMontant($totalUsers, 2, ''); ?></span>
+	                        <span class="text-warning font-weight-bold"><?= $totalUsers ?></span>
 	                    </p>
 
 	                    <p class="mb-0">Membres inscrits</p>

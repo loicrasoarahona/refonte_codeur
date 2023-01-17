@@ -1,9 +1,10 @@
 <?php
 
-
+ini_set("error_reporting", 0); //temporaire
 
 $http_origin = $_SERVER['HTTP_ORIGIN'];
-if (strpos(strtolower($http_origin), "https://gifthunter.fr/") !== false) {
+if (strpos(strtolower($http_origin), "http://127.0.0.1/") !== false) {
+    // if (strpos(strtolower($http_origin), "https://gifthunter.fr/") !== false) {
     header("Access-Control-Allow-Origin: $http_origin");
     $http_origin = $_SERVER['HTTP_ORIGIN'];
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -19,9 +20,13 @@ session_start();
 
 // Informations d'identification
 define('DB_SERVER', 'localhost');
-define('DB_USERNAME', 'gifthunter');
-define('DB_PASSWORD', '0uq_1iQ44');
-define('DB_NAME', 'admin11_');
+define('DB_USERNAME', 'loic');
+define('DB_PASSWORD', 'anjomakely');
+define('DB_NAME', 'timtim');
+// define('DB_SERVER', 'localhost');
+// define('DB_USERNAME', 'gifthunter');
+// define('DB_PASSWORD', '0uq_1iQ44');
+// define('DB_NAME', 'admin11_');
 
 $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
@@ -38,7 +43,8 @@ setlocale(LC_TIME, ['fr', 'fra', 'fr_FR']);
 date_default_timezone_set('Europe/Paris');
 
 
-$base_url = "https://gifthunter.fr/";
+$base_url = "http://127.0.0.1/";
+// $base_url = "https://gifthunter.fr/";
 $url_instagram = "";
 $url_youtube = ""; // sans@
 $url_facebook = "";

@@ -70,11 +70,13 @@ $totalUsers = $totalUsers['exist'];
 $totalAmountRevers = $pdo->query("SELECT SUM(montant) AS 'amount' FROM gagnants");
 $totalAmountRevers = $totalAmountRevers->fetch(PDO::FETCH_ASSOC);
 $totalAmountRevers = $totalAmountRevers['amount'];
+
+$nbMbreActifs = getMembresActifs($pdo);
+
 if (isset($_SESSION['id'])) {
 
 	//enregistrer l'activité et récupérer les membres actifs
 	saveUserActivity($_SESSION['id'], $pdo);
-	$nbMbreActifs = getMembresActifs($pdo);
 
 	$sql = $pdo->query("SELECT * FROM users WHERE id = '" . addslashes($_SESSION['id']) . "'");
 	$resultat = $sql->fetch(PDO::FETCH_ASSOC);
