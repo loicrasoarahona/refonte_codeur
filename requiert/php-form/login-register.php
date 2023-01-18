@@ -5,133 +5,136 @@ require_once $_ROOT . '/requiert/service-mail/mail.php';
 $mailService = new ServiceMail\MailAction();
 
 // Début : Inscription
-if (!empty($_POST['nom'])): $post_reg_nom = ucfirst(addslashes(htmlentities($_POST['nom'])));
-else: $post_reg_nom = null;
+if (!empty($_POST['nom'])) : $post_reg_nom = ucfirst(addslashes(htmlentities($_POST['nom'])));
+else : $post_reg_nom = null;
 endif;
-if (!empty($_POST['prenom'])): $post_reg_prenom = ucfirst(addslashes(htmlentities($_POST['prenom'])));
-else: $post_reg_prenom = null;
+if (!empty($_POST['prenom'])) : $post_reg_prenom = ucfirst(addslashes(htmlentities($_POST['prenom'])));
+else : $post_reg_prenom = null;
 endif;
-if (!empty($_POST['email'])): $post_reg_email = strtolower(addslashes(htmlentities($_POST['email'])));
-else: $post_reg_email = null;
+if (!empty($_POST['email'])) : $post_reg_email = strtolower(addslashes(htmlentities($_POST['email'])));
+else : $post_reg_email = null;
 endif;
-if (!empty($_POST['password'])): $post_reg_mdp = addslashes(htmlentities($_POST['password']));
-else: $post_reg_mdp = null;
+if (!empty($_POST['password'])) : $post_reg_mdp = addslashes(htmlentities($_POST['password']));
+else : $post_reg_mdp = null;
 endif;
 
-$post_reg_news = 0 ;
-if (!empty($_POST['news'])){
+$post_reg_news = 0;
+if (!empty($_POST['news'])) {
     $post_reg_news = addslashes(htmlentities($_POST['news']));
-    $post_reg_news = $post_reg_news == 1 ? 1 : 0 ; 
-} 
+    $post_reg_news = $post_reg_news == 1 ? 1 : 0;
+}
 
-if (!empty($_POST['idParrain'])): $post_idParrain = addslashes(htmlentities($_POST['idParrain']));
-else: $post_idParrain = null; 
+if (!empty($_POST['idParrain'])) : $post_idParrain = addslashes(htmlentities($_POST['idParrain']));
+else : $post_idParrain = null;
 endif;
 
 if (!empty($_POST["submit_register"])) {
-    if (!empty($_POST["nom"]) && 
-        !empty($_POST["prenom"]) && 
-        !empty($_POST["email"]) && 
-        !empty($_POST["password"])){            
-            $country_block=array(
-                'ZA',
-                'DZ',
-                'AO',
-                'BJ',
-                'BW',
-                'BF',
-                'BI',
-                'CV',
-                'CM',
-                'KM',
-                'CD',
-                'CG',
-                'CI',
-                'DJ',
-                'EG',
-                'ER',
-                'ET',
-                'GA',
-                'GM',
-                'GH',
-                'GN',
-                'GQ',
-                'KE',
-                'LS',
-                'LR',
-                'LY',
-                'MG',
-                'MW',
-                'ML',
-                'MA',
-                'MU',
-                'MR',
-				'NO',
-                'YT',
-                'MZ',
-                'NA',
-                'NE',
-                'NG',
-                'UG',
-                'CF',
-                'RE',
-                'RW',
-                'SN',
-                'SC',
-                'SL',
-                'SO',
-                'SD',
-                'SS',
-                'SZ',
-                'TZ',
-                'TD',
-                'TG',
-                'TN',
-                'ZM'
-            );
-            
+    if (
+        !empty($_POST["nom"]) &&
+        !empty($_POST["prenom"]) &&
+        !empty($_POST["email"]) &&
+        !empty($_POST["password"])
+    ) {
+        $country_block = array(
+            'ZA',
+            'DZ',
+            'AO',
+            'BJ',
+            'BW',
+            'BF',
+            'BI',
+            'CV',
+            'CM',
+            'KM',
+            'CD',
+            'CG',
+            'CI',
+            'DJ',
+            'EG',
+            'ER',
+            'ET',
+            'GA',
+            'GM',
+            'GH',
+            'GN',
+            'GQ',
+            'KE',
+            'LS',
+            'LR',
+            'LY',
+            'MG',
+            'MW',
+            'ML',
+            'MA',
+            'MU',
+            'MR',
+            'NO',
+            'YT',
+            'MZ',
+            'NA',
+            'NE',
+            'NG',
+            'UG',
+            'CF',
+            'RE',
+            'RW',
+            'SN',
+            'SC',
+            'SL',
+            'SO',
+            'SD',
+            'SS',
+            'SZ',
+            'TZ',
+            'TD',
+            'TG',
+            'TN',
+            'ZM'
+        );
 
 
-            $details = json_decode(file_get_contents("http://ipinfo.io/".ip.""));
-            
-            $isLocalhost = (ip == '127.0.0.1');
-            if($isLocalhost || (isset($details->country) && !in_array($details->country,$country_block))){
-                $country = $isLocalhost?'FR':$details->country;
-                if (preg_match("!^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\.[a-zA-Z]{2,4}$!", $post_reg_email)) {
-                        $sql_RegCount = $pdo->query("SELECT COUNT(id) as 'total' FROM users WHERE email = '" . $post_reg_email . "'");
-                        $dns_RegCount = $sql_RegCount->fetch(PDO::FETCH_ASSOC);
-                        $nb_RegCount = addslashes(htmlentities($dns_RegCount['total']));
 
-                        $ip_verifi = $pdo->query("SELECT COUNT(id) as 'total' FROM users WHERE ip = '".ip."'");
-                        $fetch_if = $ip_verifi->fetch(PDO::FETCH_ASSOC);
-                        $verifi = addslashes(htmlentities($fetch_if['total']));
+        $details = json_decode(file_get_contents("http://ipinfo.io/" . ip . ""));
 
-                        if($verifi == 0){
+        $isLocalhost = (ip == '127.0.0.1');
+        if ($isLocalhost || (isset($details->country) && !in_array($details->country, $country_block))) {
+            $country_code = $isLocalhost ? 'FR' : $details->country;
+            if (preg_match("!^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\.[a-zA-Z]{2,4}$!", $post_reg_email)) {
+                $sql_RegCount = $pdo->query("SELECT COUNT(id) as 'total' FROM users WHERE email = '" . $post_reg_email . "'");
+                $dns_RegCount = $sql_RegCount->fetch(PDO::FETCH_ASSOC);
+                $nb_RegCount = addslashes(htmlentities($dns_RegCount['total']));
 
-                            // modif
-                        if ($nb_RegCount == 0) {
+                $ip_verifi = $pdo->query("SELECT COUNT(id) as 'total' FROM users WHERE ip = '" . ip . "'");
+                $fetch_if = $ip_verifi->fetch(PDO::FETCH_ASSOC);
+                $verifi = addslashes(htmlentities($fetch_if['total']));
 
-                                $reponsConfirm = 'Bravo, vous êtes maintenant inscrit ! Un e-mail de confirmation vous a été envoyé.';
-                                $button = '"Fermer"';
-                                
-                                if (!$post_idParrain || !is_numeric($post_idParrain) || empty($post_idParrain)) {
-                                    $post_idParrain = 0;
-                                }
-                                $post_idParrain = intval($post_idParrain.'');
+                // je désactive la vérification d'ip
+                // if ($verifi == 0) {
 
-                                $sqlRec = "INSERT INTO `users` (`hashId`, `email`, `mdp`, `nom`, `prenom`, `pays`, `ip`, `idParrain`, `news` ,`date_Inscription`) VALUES ('" . code(25) . "', '" . $post_reg_email . "', '" . sha1(md5($post_reg_mdp)) . "', '" . $post_reg_nom . "', '" . $post_reg_prenom . "', '" . $country_code . "', '" . ip . "', ".$post_idParrain.", '" . $post_reg_news . "' , NOW())";
-                                //echo $sqlRec."<br>";
-                                $pdo->exec($sqlRec);
+                // modif
+                if ($nb_RegCount == 0) {
 
-                                
+                    $reponsConfirm = 'Bravo, vous êtes maintenant inscrit ! Un e-mail de confirmation vous a été envoyé.';
+                    $button = '"Fermer"';
 
-                                if($post_reg_news == 1){
-                                    $pdo->exec("INSERT INTO `newletter`
-                                    (`newLetter_email`) VALUES ('" .$post_reg_email. "')
+                    if (!$post_idParrain || !is_numeric($post_idParrain) || empty($post_idParrain)) {
+                        $post_idParrain = 0;
+                    }
+                    $post_idParrain = intval($post_idParrain . '');
+
+                    $sqlRec = "INSERT INTO `users` (`hashId`, `email`, `mdp`, `nom`, `prenom`, `pays`, `ip`, `idParrain`, `news` ,`date_Inscription`) VALUES ('" . code(25) . "', '" . $post_reg_email . "', '" . sha1(md5($post_reg_mdp)) . "', '" . $post_reg_nom . "', '" . $post_reg_prenom . "', '" . $country_code . "', '" . ip . "', " . $post_idParrain . ", '" . $post_reg_news . "' , NOW())";
+                    //echo $sqlRec."<br>";
+                    $pdo->exec($sqlRec);
+
+
+
+                    if ($post_reg_news == 1) {
+                        $pdo->exec("INSERT INTO `newletter`
+                                    (`newLetter_email`) VALUES ('" . $post_reg_email . "')
                                 ");
-                                }    
-                            
-                                $messageM=' 
+                    }
+
+                    $messageM = ' 
                                     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
                                     <html xmlns="http://www.w3.org/1999/xhtml">
                                     <head>
@@ -516,120 +519,111 @@ if (!empty($_POST["submit_register"])) {
 
                                 ';
 
-                                $mailService->sendSMTP($post_reg_email, 'Confirmation d\'inscription', $messageM, [
-                                    ['images/logo_final_bleu.png', 'logo']
-                                ]);
-                                
-                        
-                            } else {
-                                $reponsError = 'Cette adresse e-mail est déjà inscrite.';
-                                $button = '"Fermer"';
-                            }
-                            
-                            } else {
-                                $reponsError = 'Vous ne pouvez pas avoir plusieurs comptes.';
-                                $button = '"Fermer"';
-                            }
-                                
-                        
+                    $mailService->sendSMTP($post_reg_email, 'Confirmation d\'inscription', $messageM, [
+                        ['images/logo_final_bleu.png', 'logo']
+                    ]);
                 } else {
-                    $reponsError = 'L\'adresse e-mail entrée est incorrecte.';
+                    $reponsError = 'Cette adresse e-mail est déjà inscrite.';
                     $button = '"Fermer"';
                 }
-
+                // } else {
+                //     $reponsError = 'Vous ne pouvez pas avoir plusieurs comptes.';
+                //     $button = '"Fermer"';
+                // }
             } else {
-                        $reponsError = 'Vous ne pouvez pas vous inscrire dans votre pays ';
-                        $button = '"Fermer"';
-                    }
-                
+                $reponsError = 'L\'adresse e-mail entrée est incorrecte.';
+                $button = '"Fermer"';
+            }
+        } else {
+            $reponsError = 'Vous ne pouvez pas vous inscrire dans votre pays ';
+            $button = '"Fermer"';
+        }
     } else {
         $reponsError = 'Tous les champs sont requis pour votre inscription.';
         $button = '"Fermer"';
     }
-
 }
 // Fin : Inscription
 
 // Début : Connexion
-if (!empty($_POST['email'])): 
+if (!empty($_POST['email'])) :
     $post_log_email = addslashes(htmlentities($_POST['email']));
-else: 
+else :
     $post_log_email = null;
 endif;
 
-if (!empty($_POST['mdp'])): 
+if (!empty($_POST['mdp'])) :
     $post_log_mdp = addslashes(htmlentities($_POST['mdp']));
-else: 
+else :
     $post_log_mdp = null;
 endif;
 
 
 if (!empty($_POST["submit_login"])) {
-    if (empty($_POST['email']) OR (empty($_POST['mdp']) && empty($_POST["token"]))) {
+    if (empty($_POST['email']) or (empty($_POST['mdp']) && empty($_POST["token"]))) {
         $reponsError = 'Vous devez remplir tous les champs.';
         $button = '"Fermer"';
     } else {
-//        session_destroy();
-        
+        //        session_destroy();
+
         if (isset($_SESSION['id'])) {
-//            var_dump('ok3'); die();
+            //            var_dump('ok3'); die();
             $reponsError = 'Désolé mais vous êtes déjà connecté.';
             $button = '"Fermer"';
         } else {
-//            var_dump('ok4'); die();
+            //            var_dump('ok4'); die();
             $req = $pdo->prepare('SELECT id, nom, prenom, email, mdp, actif, banni, datelastco, level FROM users WHERE email=:email');
             $req->bindValue(":email", $_POST['email']);
             $req->execute();
 
             $result_req = $req->fetch(PDO::FETCH_OBJ);
-//            echo '<pre>';
-//            print_r($result_req);
-//            echo '</pre>';
-//            die();
+            //            echo '<pre>';
+            //            print_r($result_req);
+            //            echo '</pre>';
+            //            die();
             if (empty($result_req)) {
                 $reponsError = "L'adresse email entrée n'existe pas dans la base.";
                 $button = '"Fermer"';
             } else {
-                
+
                 if ($result_req->actif == 1) {
 
                     if ($result_req->banni == 0) {
-                        
+
                         if ($result_req->mdp == sha1(md5($_POST['mdp'])) || ($result_req->mdp == $_POST["token"] && $validationCompte)) {
-                            
 
-                                /* setcookie('id_user', $result_req->id); */
 
-                                $_SESSION['id'] = $result_req->id;
-                                $_SESSION['email'] = $result_req->email;
-                                $_SESSION['level'] = $result_req->level;
+                            /* setcookie('id_user', $result_req->id); */
 
-                                $name = $result_req->nom . " " . $result_req->prenom;
-                                $_SESSION['name'] = trim($name);
-                                   
-                                $sql = $pdo->prepare('SELECT idUser,email,ip FROM users_infos WHERE idUser = :idUser');
-//                                $sql = $pdo->prepare('SELECT * FROM users INNER JOIN users_infos ON users.id = users_infos.idUser WHERE users_infos.idUser = users.id AND users.level = 1');
-                                $sql->bindValue(":idUser", $result_req->id);
-                                $sql->execute();
-                                $res = $sql->fetch(PDO::FETCH_OBJ);
-                                //  $sql = $pdo->prepare('SELECT id,email,ip FROM users WHERE idUser = :idUser');
-                                // $sql->bindValue(":idUser", $result_req->id);
-                                // $sql->execute();
-                                // $res = $sql->fetch(PDO::FETCH_OBJ);
-                                if(!empty($res)){
-                                    $_SESSION['email_offre'] = $res->email;
-                                    $_SESSION['ip'] = $res->ip;
-                                }
+                            $_SESSION['id'] = $result_req->id;
+                            $_SESSION['email'] = $result_req->email;
+                            $_SESSION['level'] = $result_req->level;
 
-                                $reponsSucess = "https://" . $_SERVER["HTTP_HOST"] . "/dashboard";
-                                $button = 'false';
-                                
-                                $post_log_email = null;
+                            $name = $result_req->nom . " " . $result_req->prenom;
+                            $_SESSION['name'] = trim($name);
 
-                                if ($validationCompte)
-                                {
-                                    redirect($reponsSucess);
-                                }
+                            $sql = $pdo->prepare('SELECT idUser,email,ip FROM users_infos WHERE idUser = :idUser');
+                            //                                $sql = $pdo->prepare('SELECT * FROM users INNER JOIN users_infos ON users.id = users_infos.idUser WHERE users_infos.idUser = users.id AND users.level = 1');
+                            $sql->bindValue(":idUser", $result_req->id);
+                            $sql->execute();
+                            $res = $sql->fetch(PDO::FETCH_OBJ);
+                            //  $sql = $pdo->prepare('SELECT id,email,ip FROM users WHERE idUser = :idUser');
+                            // $sql->bindValue(":idUser", $result_req->id);
+                            // $sql->execute();
+                            // $res = $sql->fetch(PDO::FETCH_OBJ);
+                            if (!empty($res)) {
+                                $_SESSION['email_offre'] = $res->email;
+                                $_SESSION['ip'] = $res->ip;
+                            }
+
+                            $reponsSucess = "https://" . $_SERVER["HTTP_HOST"] . "/dashboard";
+                            $button = 'false';
+
+                            $post_log_email = null;
+
+                            if ($validationCompte) {
+                                redirect($reponsSucess);
+                            }
                         } else {
                             $reponsError = 'Mot de passe incorrect.';
                             $button = '"Fermer"';
@@ -674,7 +668,7 @@ if (!empty($_POST["submit_reset_mdp"])) {
                 // $headers .= "Reply-To: No Reply <webmaster@cashbackreduction.com>\n";
 
 
-                $messageM=' 
+                $messageM = ' 
   
 
                     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -998,7 +992,7 @@ if (!empty($_POST["submit_reset_mdp"])) {
                                                                                 <tr>
                                                                                     <td align="center" valign="middle" class="buttonContent" style="padding-top:15px;padding-bottom:15px;padding-right:15px;padding-left:15px;">
                                                                                         <a
-                                                                                        href="' . url_site . '/reset-user?token='.  $result_req->hashId .'" 
+                                                                                        href="' . url_site . '/reset-user?token=' .  $result_req->hashId . '" 
                                                                                         style="color:#FFFFFF;text-decoration:none;font-family:Helvetica,Arial,sans-serif;font-size:20px;line-height:135%;" href="#" target="_blank">Renitialiser</a>
                                                                                     </td>
                                                                                 </tr>
@@ -1074,77 +1068,63 @@ if (!empty($_POST["submit_reset_mdp"])) {
 
 
                 ';
-                
+
                 $mailService->sendSMTP($post_reg_email, 'Réinitialiser les mots de passe', $messageM, [
                     ['images/logo_final_bleu.png', 'logo']
                 ]);
 
                 $reponsConfirm = 'Un e-mail de réinitialisation vous a été envoyé.';
                 $button = '"Fermer"';
-
             }
         }
     }
 }
 
 if (!empty($_POST["submit_reset_pass"])) {
-    
-    if (empty($_POST['mdp1']) OR empty($_POST['mdp2']) OR empty($_GET['token']))
-    {
+
+    if (empty($_POST['mdp1']) or empty($_POST['mdp2']) or empty($_GET['token'])) {
         $reponsError = 'Vous devez remplir tous les champs.';
         $button = '"Fermer"';
-    }
-    else
-    {
-        if($_POST['mdp2'] === $_POST['mdp1']){
+    } else {
+        if ($_POST['mdp2'] === $_POST['mdp1']) {
 
-            $id=$_GET['token'];
-            $mdp=sha1(md5($_POST['mdp2']));
+            $id = $_GET['token'];
+            $mdp = sha1(md5($_POST['mdp2']));
 
-            $pdo->exec("UPDATE users SET mdp = '".$mdp."' WHERE hashId = '".$id."'");
+            $pdo->exec("UPDATE users SET mdp = '" . $mdp . "' WHERE hashId = '" . $id . "'");
             $reponsSucess = "https://" . $_SERVER["HTTP_HOST"] . "/login";
-            
-
-        }else{
+        } else {
 
             $reponsError = 'Les mots de passe ne sont pas identiques.';
             $button = '"Fermer"';
-
         }
-
     }
-
-
-
 }
 
 if (!empty($_POST["add_new_letter"])) {
     $sql_RegCount = $pdo->query("SELECT * FROM newletter WHERE newLetter_email = '" . $post_reg_email . "'");
     $dns_RegCount = $sql_RegCount->fetch(PDO::FETCH_ASSOC);
-    
+
     if ($sql_RegCount->rowCount() == 0) {
         $reponsConfirm = 'Bravo, vous êtes maintenant inscrit au newLetter!.';
         $button = '"Fermer"';
-        $recSql = "INSERT INTO `newletter` (`newLetter_email`, `newLetter_prenom`) VALUES('" .$post_reg_email. "',  '" .explode("@",$post_reg_email)[0]. "')";
+        $recSql = "INSERT INTO `newletter` (`newLetter_email`, `newLetter_prenom`) VALUES('" . $post_reg_email . "',  '" . explode("@", $post_reg_email)[0] . "')";
         $pdo->exec($recSql);
-        
-
-    }else{
+    } else {
         $reponsError = 'Vous ete deja inscrite.';
         $button = '"Fermer"';
     }
-
 }
 // Fin : Connexion
 
 // Début : Confirmation d'inscription
 if (isset($_GET['confirm']) && $_GET['confirm'] == 1) {
-    
-    if (!empty($_GET['userEmail'])): $get_conf_email = addslashes(htmlentities($_GET['userEmail']));
-    else: $get_conf_email = null;
+
+    if (!empty($_GET['userEmail'])) : $get_conf_email = addslashes(htmlentities($_GET['userEmail']));
+    else : $get_conf_email = null;
     endif;
-    if (!empty($_GET['token'])): $get_conf_token = addslashes(htmlentities($_GET['token']));
-    else: $get_conf_token = null;
+    if (!empty($_GET['token'])) : $get_conf_token = addslashes(htmlentities($_GET['token']));
+    else : $get_conf_token = null;
     endif;
 
     $sql_ValidAccount = $pdo->query("SELECT COUNT(id) as 'total' FROM users WHERE email = '" . $get_conf_email . "' AND mdp = '" . $get_conf_token . "' AND actif = 0");
@@ -1166,7 +1146,7 @@ if (isset($_GET['confirm']) && $_GET['confirm'] == 1) {
         $idParrain = (int)$user['idParrain'];
 
         //add bonus parrain
-        if( $idParrain != 0){
+        if ($idParrain != 0) {
             $parrain = $pdo->query("SELECT * FROM users WHERE id = {$idParrain}");
             $parrain = $parrain->fetch(PDO::FETCH_ASSOC);
             $montantParrain = (float)$parrain['euros'];
@@ -1217,8 +1197,7 @@ if (isset($reponsConfirm) && $reponsConfirm !=  null) {
 }
 
 
-if (isset($reponsSucess) && $reponsSucess !=  null)
-{
+if (isset($reponsSucess) && $reponsSucess !=  null) {
     if (isset($_SESSION['id'])) {
         newNotifcations($_SESSION['id'], $reponsConfirm, $pdo);
     }
@@ -1266,6 +1245,3 @@ if (isset($reponsError) && $reponsError !=  null) {
 //    echo "<script>window.location.href='MonCompte.php'</script>";
 //     // echo "test";
 // }
-?>
-
- 
