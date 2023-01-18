@@ -177,7 +177,7 @@ $k = " pays LIKE '%" . $country . "%'";
                                                         <div class="p-3 pt-2">
                                                             <div class="custom-card-body">
                                                                 <h3 style="font-size: 1rem;" class="text-gray">
-                                                                    <span class="text-primary" style="font-size: 1rem;"><i class="icofont-sale-discount"></i><?php echo displayMontant($remuneration, 2, ' €'); ?></span>
+                                                                    <span style="font-weight: 500;"></i><?php echo displayMontant($remuneration, 2, '€'); ?></span>
                                                                     <?php echo $nom; ?>
                                                                 </h3>
                                                             </div>
