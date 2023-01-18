@@ -5027,7 +5027,7 @@ button:focus {
 	position: fixed;
 	bottom: 50px;
 	right: 50px;
-	background: #0062cc;
+	background: #FFC708;
 	width: 80px;
 	height: 80px;
 	border-radius: 50%;
@@ -5044,7 +5044,7 @@ button:focus {
 	border-radius: 45px;
 	padding-right: 40px;
 	padding-left: 40px;
-	color: #0062cc;
+	color: #FFC708;
 }
 #chat-overlay {
 	background: rgba(255,255,255,0.1);
@@ -5102,7 +5102,7 @@ button:focus {
 		box-shadow:none;
 		border:none;
 		border-radius:50%;
-		color:#0062cc;
+		color:#FFC708;
 		width:35px;
 		height:35px;
 		z-index: 99999;
@@ -5115,7 +5115,7 @@ button:focus {
 	cursor:pointer;
 }
 .chat-box-header {
-	background: #0062cc;
+	background: #FFC708;
 	height:60px;
 	border-top-left-radius:5px;
 	border-top-right-radius:5px;
@@ -5185,7 +5185,7 @@ button:focus {
 	box-shadow:none;
 	border:none;
 	border-radius:50%;
-	color:#0062cc;
+	color:#FFC708;
 	width:35px;
 	height:35px;
 }
@@ -5209,7 +5209,7 @@ button:focus {
 
 .chat-logs::-webkit-scrollbar-thumb
 {
-	background-color: #0062cc;
+	background-color: #FFC708;
 }
 
 

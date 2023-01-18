@@ -21,3 +21,10 @@ function getMembresActifs($pdo)
     }
     return 0;
 }
+
+function getUserPays($userId, $pdo)
+{
+    $query = $pdo->query("SELECT pays from users where id=" . $userId);
+    $resultat = $query->fetch(PDO::FETCH_ASSOC);
+    return $resultat['pays'];
+}

@@ -17,12 +17,12 @@ $rooms = $reqRoom->fetchAll(PDO::FETCH_ASSOC);
     </div>
 
     <div class="chat-box chat-area">
-        <div class="chat-box-header">
+        <!-- <div class="chat-box-header">
             <div class="btn-group btn-group-dropdown user-connected">
                 <button type="button" class="btn-default dropdown-toggle room-dropdown-btn" data-toggle="dropdown" aria-expanded="false">
-                    Room <?php echo strtoupper($rooms[0]["pays"]); ?>
+                    Room <?php echo strtoupper($mbrePays); ?>
                 </button>
-                <input type="hidden" id="room-user" value="<?= strtoupper($rooms[0]["pays"]) ?>">
+                <input type="hidden" id="room-user" value="<?= strtoupper($mbrePays) ?>">
                 <div class="dropdown-menu" style="">
                     <?php foreach ($rooms as $room) : ?>
                         <a class="dropdown-item" data-room="<?= strtoupper($room["pays"]) ?>" href="#">Room <?= strtoupper($room["pays"]) ?></a>
@@ -32,6 +32,11 @@ $rooms = $reqRoom->fetchAll(PDO::FETCH_ASSOC);
                 </div>
             </div>
             <span class="chat-box-toggle"><i class="icofont-close"></i></span>
+        </div> -->
+        <div class="chat-box-header">
+            <i class="icofont-1x icofont-chat"></i>
+            Chat (<?php echo $nbMbreActifs ?>)
+            <span class=" chat-box-toggle"><i class="icofont-close"></i></span>
         </div>
         <div class="chat-box-body">
             <div class="chat-box-overlay">
