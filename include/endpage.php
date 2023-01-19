@@ -461,9 +461,10 @@
                     type: 'POST',
                     url: '/ajax/checking-chat.php?a=refreshchat',
                     data: $('#form-chat').serialize(),
-                    success: function(data) {
+                    success: function(retour) {
                         $('#form-chat #chat-input').val('');
-                        $('.chat-area-main').html(data);
+                        $('.chat-area-main').html(retour);
+                        console.log(retour);
                     }
                 });
             });

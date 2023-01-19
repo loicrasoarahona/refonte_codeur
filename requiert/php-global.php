@@ -73,6 +73,8 @@ $totalAmountRevers = $totalAmountRevers['amount'];
 
 $nbMbreActifs = getMembresActifs($pdo);
 
+$mbreId = 0;
+
 if (isset($_SESSION['id'])) {
 
 	//enregistrer l'activité et récupérer les membres actifs
@@ -91,6 +93,7 @@ if (isset($_SESSION['id'])) {
 	$mbreVille = addslashes(html_entity_decode($resultat['ville']));
 	$mbreCodePostal = addslashes(htmlentities($resultat['codePostal']));
 	$mbrePays = addslashes(html_entity_decode($resultat['pays']));
+	$mbrePaysChat = addslashes(html_entity_decode($resultat['pays_chat']));
 	$country_code = addslashes(html_entity_decode($resultat['pays']));
 	$mbreEuros = addslashes(html_entity_decode($resultat['euros']));
 	$mbreEurosHisto = addslashes(html_entity_decode($resultat['euros_histo']));
