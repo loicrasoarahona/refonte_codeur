@@ -168,16 +168,18 @@ $k = " pays LIKE '%" . $country . "%'";
                                                         <div class="custom-card-image" data-toggle="modal" data-target="#offre_<?php echo $id_line; ?>">
                                                             <a href="#">
                                                                 <img class="img-fluid item-img" src="<?php echo $image; ?>">
-                                                                <?php if ($dones_offers['premium'] == 1) { ?>
-                                                                    <div class="member-plan"><span class="badge badge-gold">Membre Premium</span></div>
-                                                                <?php } ?>
+                                                                <div class="member-plan">
+                                                                    <?php if ($dones_offers['premium'] == 1) { ?>
+                                                                        <span class="badge badge-gold">Membre Premium</span>
+                                                                    <?php } ?>
+                                                                    <span style="font-size: 1rem;" class="badge badge-gold"><i class="icofont-money-bag"></i><?php echo displayMontant($remuneration, 2, '€'); ?></span>
+                                                                </div>
                                                             </a>
 
                                                         </div>
                                                         <div class="p-3 pt-2">
                                                             <div class="custom-card-body">
                                                                 <h3 style="font-size: 1rem;" class="text-gray">
-                                                                    <span style="font-weight: 500;"></i><?php echo displayMontant($remuneration, 2, '€'); ?></span>
                                                                     <?php echo $nom; ?>
                                                                 </h3>
                                                             </div>
