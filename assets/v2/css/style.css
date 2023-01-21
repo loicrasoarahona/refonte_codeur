@@ -147,7 +147,7 @@ input,
 }
 
 .nav-user .dropdown-user {
-	margin: 0 0 0 13px;
+	/* margin: 0 0 0 13px; */
 }
 
 .nav-user .dropdown-user img {
@@ -4467,7 +4467,7 @@ button:focus {
 
 
 .dropdown-user {
-	margin: 0 0 0 13px;
+	/* margin: 0 0 0 13px; */
 }
 
 .app .header .dropdown-user img {

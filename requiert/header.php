@@ -2,24 +2,24 @@
 ini_set('display_errors', '1');
 
 include('./requiert/php-global.php');
-if (isset($pdo) && isset($mbreHashId)){
-    $pSql = "SELECT * FROM histo_offers WHERE idUser = '".$mbreHashId."' AND etat='Valid&eacute;' AND vu_header=0 ORDER BY STR_TO_DATE(date,'%d/%m/%Y à %H:%i:%s') DESC LIMIT 0,10";
-    
-    
+if (isset($pdo) && isset($mbreHashId)) {
+    $pSql = "SELECT * FROM histo_offers WHERE idUser = '" . $mbreHashId . "' AND etat='Valid&eacute;' AND vu_header=0 ORDER BY STR_TO_DATE(date,'%d/%m/%Y à %H:%i:%s') DESC LIMIT 0,10";
+
+
     $p = $pdo->query($pSql);
     $h = $p->fetchAll(PDO::FETCH_ASSOC);
-    if(count($h) > 0){
-        $nbr_io='<b class="cloche" >'.count($h).'</b>';
+    if (count($h) > 0) {
+        $nbr_io = '<b class="cloche" >' . count($h) . '</b>';
     }
-    
-    $fetch_data= $pdo->query("SELECT COUNT(*) AS 'remuneration' FROM messagerie_all WHERE id_recive='".$_SESSION['id']."' AND id_response = 0 AND message_lu = 0 ORDER BY id DESC");
+
+    $fetch_data = $pdo->query("SELECT COUNT(*) AS 'remuneration' FROM messagerie_all WHERE id_recive='" . $_SESSION['id'] . "' AND id_response = 0 AND message_lu = 0 ORDER BY id DESC");
     $totalMissionsAttente = $fetch_data->fetch(PDO::FETCH_ASSOC);
     $totalMissionsAttente = $totalMissionsAttente['remuneration'];
-
-    }
+}
 ?>
 <!DOCTYPE html>
 <html class="no-js" lang="en">
+
 <head>
     <title>Revenucash</title>
 
@@ -34,7 +34,7 @@ if (isset($pdo) && isset($mbreHashId)){
     <meta name="twitter:url" content="http://yourdomain.com">
     <meta name="twitter:title" content="Your home page title, max 140 char"> <!-- maximum 140 char -->
     <meta name="twitter:description" content="Your site description, maximum 140 char "> <!-- maximum 140 char -->
-    <meta name="twitter:image" content="coupon/img/twittercardimg/twittercard-144-144.png">  <!-- when you post this page url in twitter , this image will be shown -->
+    <meta name="twitter:image" content="coupon/img/twittercardimg/twittercard-144-144.png"> <!-- when you post this page url in twitter , this image will be shown -->
     <!-- twitter card ends here -->
 
     <!-- facebook open graph starts from here, if you don't need then delete open graph related  -->
@@ -42,7 +42,7 @@ if (isset($pdo) && isset($mbreHashId)){
     <meta property="og:url" content="http://your domain here.com">
     <meta property="og:locale" content="en_US">
     <meta property="og:site_name" content="Your site name here">
-    <!--meta property="fb:admins" content="" /-->  <!-- use this if you have  -->
+    <!--meta property="fb:admins" content="" /--> <!-- use this if you have  -->
     <meta property="og:type" content="website"> <!-- 'article' for single page  -->
     <meta property="og:image" content="coupon/img/opengraph/fbphoto-476-476.png"> <!-- when you post this page url in facebook , this image will be shown -->
     <!-- facebook open graph ends here -->
@@ -53,7 +53,7 @@ if (isset($pdo) && isset($mbreHashId)){
     <meta name="theme-color" content="#ffffff">
 
     <!-- icons & favicons -->
-    <link rel="shortcut icon" type="image/x-icon" href="coupon/img/favicon/favicon.ico">  <!-- this icon shows in browser toolbar -->
+    <link rel="shortcut icon" type="image/x-icon" href="coupon/img/favicon/favicon.ico"> <!-- this icon shows in browser toolbar -->
     <link rel="icon" type="image/x-icon" href="coupon/img/favicon/favicon.ico"> <!-- this icon shows in browser toolbar -->
     <link rel="apple-touch-icon" sizes="57x57" href="coupon/img/favicon/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="coupon/img/favicon/apple-icon-60x60.png">
@@ -85,7 +85,7 @@ if (isset($pdo) && isset($mbreHashId)){
 
     <!-- linearicons -->
     <link rel="stylesheet" href="coupon/vendor/linearicons/webfont/style.css" media="all">
-    
+
     <!-- animate.css -->
     <link rel="stylesheet" href="coupon/vendor/animate/animate.min.css" media="all">
 
@@ -101,13 +101,13 @@ if (isset($pdo) && isset($mbreHashId)){
     <!-- CUSTOM  CSS  -->
     <link id="cbx-style" rel="stylesheet" href="coupon/css/style-default.css" media="all">
     <link id="cbx-style" rel="stylesheet" href="coupon/css/custom.css" media="all">
-	<link id="cbx-style" rel="stylesheet" href="coupon/css/emailing.css" media="all">
-	 <link id="cbx-style" rel="stylesheet" href="cash_theme/css/joweb.css" media="all">
+    <link id="cbx-style" rel="stylesheet" href="coupon/css/emailing.css" media="all">
+    <link id="cbx-style" rel="stylesheet" href="cash_theme/css/joweb.css" media="all">
 
     <!-- MODERNIZER  -->
     <script type="text/javascript" src="js/sweetalert.min.js"></script>
     <script src="coupon/vendor/modernizr/modernizr.min.js"></script>
-      <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=News+Cycle&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=News+Cycle&display=swap" rel="stylesheet">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
 
     <!--old-->
@@ -118,64 +118,64 @@ if (isset($pdo) && isset($mbreHashId)){
     <script>
         window.fbAsyncInit = function() {
             FB.init({
-            appId      : '3321703071194475',
-            cookie     : true,                     // Enable cookies to allow the server to access the session.
-            xfbml      : true,                     // Parse social plugins on this webpage.
-            version    : 'v3.2'           // Use this Graph API version for this call.
+                appId: '3321703071194475',
+                cookie: true, // Enable cookies to allow the server to access the session.
+                xfbml: true, // Parse social plugins on this webpage.
+                version: 'v3.2' // Use this Graph API version for this call.
             });
-        
+
         };
-        
-        function testAPI() {    
-                FB.api('/me?fields=name,email', function(response) {
-                    insert(response);	
-                });
+
+        function testAPI() {
+            FB.api('/me?fields=name,email', function(response) {
+                insert(response);
+            });
         }
 
-        function insert(response){
+        function insert(response) {
             var name = response.name;
             var apt = name.split(' ');
-                var data = {
-                        nom: apt[0],
-                        prenom: apt[1],
-                        email:response.email,
-                        idParrain: document.getElementById('idParrain').value
-                }
+            var data = {
+                nom: apt[0],
+                prenom: apt[1],
+                email: response.email,
+                idParrain: document.getElementById('idParrain').value
+            }
 
-                    $.ajax({
-                    url:'<?= url_site ;?>/loginSocial.php',
-                    type: 'POST',
-                    data:data,
-                    success: function(data){
-                            window.location.replace('<?= url_site ;?>/redirectLogin.php?id='+data+'');
-                    }
-                    });
+            $.ajax({
+                url: '<?= url_site; ?>/loginSocial.php',
+                type: 'POST',
+                data: data,
+                success: function(data) {
+                    window.location.replace('<?= url_site; ?>/redirectLogin.php?id=' + data + '');
+                }
+            });
         }
 
 
         function onSignIn(googleUser) {
 
-        var profile = googleUser.getBasicProfile();
-                    
+            var profile = googleUser.getBasicProfile();
+
             var apt = profile.getName().split(' ');
 
-                var data = {
-                    nom: apt[0],
-                    prenom: apt[1],
-                    email:profile.getEmail(),
-                    idParrain: document.getElementById('idParrain').value
+            var data = {
+                nom: apt[0],
+                prenom: apt[1],
+                email: profile.getEmail(),
+                idParrain: document.getElementById('idParrain').value
+            }
+
+            $.ajax({
+                url: '<?= url_site; ?>/loginSocial.php',
+                type: 'POST',
+                data: data,
+                success: function(data) {
+                    window.location.replace('<?= url_site; ?>/redirectLogin.php?id=' + data + '');
                 }
+            });
 
-                $.ajax({
-                    url:'<?= url_site ;?>/loginSocial.php',
-                    type: 'POST',
-                    data:data,
-                    success: function(data){
-                        window.location.replace('<?= url_site ;?>/redirectLogin.php?id='+data+'');
-                    }
-                });
-
-        } 
+        }
 
         function Off() {
             var cookies = document.cookie.split(";");
@@ -186,79 +186,90 @@ if (isset($pdo) && isset($mbreHashId)){
                 var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
                 document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
             }
-            
+
             window.location.replace('deconnexion.php');
         };
-        
     </script>
 
 
 
 
 </head>
+
 <body>
-<style>
-span.text-center.text-sm.font-medium.truncate.mt-2 {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    text-align: center;
-    line-height: 1.25rem;
-}
-.text-center {
-    text-align: center;
-}
-.mt-2 {
-    margin-top: 0.5rem;
-}
+    <style>
+        span.text-center.text-sm.font-medium.truncate.mt-2 {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            text-align: center;
+            line-height: 1.25rem;
+        }
 
-.text-sm {
-    line-height: 1.25rem;
-}
-.font-medium {
-    font-weight: 500;
-}
-    .card{
-        padding: 0px;
-        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-        transition: 0.3s;
-        border-radius: 25px;
-    }
+        .text-center {
+            text-align: center;
+        }
 
-    .my-card{
-        padding: 30px 15px;
-        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-        transition: 0.3s;
-        border-radius: 25px;
-    }
+        .mt-2 {
+            margin-top: 0.5rem;
+        }
 
-    .card-img-top {
-        width: 100%;
-        height: 15vw;
-        object-fit: contain;
-    }
-    .deal-coupon-slider-wrapper {
-      position: inherit!important;
-    }
-    h3.titre-menu {
+        .text-sm {
+            line-height: 1.25rem;
+        }
+
+        .font-medium {
+            font-weight: 500;
+        }
+
+        .card {
+            padding: 0px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+            border-radius: 25px;
+        }
+
+        .my-card {
+            padding: 30px 15px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+            border-radius: 25px;
+        }
+
+        .card-img-top {
+            width: 100%;
+            height: 15vw;
+            object-fit: contain;
+        }
+
+        .deal-coupon-slider-wrapper {
+            position: inherit !important;
+        }
+
+        h3.titre-menu {
             color: #669bcc;
             margin-top: -18px;
             font-size: 27px;
         }
+
         h3.titre-menu span {
             margin-left: 22px;
         }
+
         li.head a {
-            padding: 1px 4px 0px 24px!important;
+            padding: 1px 4px 0px 24px !important;
         }
+
         .specified th {
-            background: #669bcc!important;
+            background: #669bcc !important;
             color: white;
             border-right: 1px solid;
         }
+
         .specified th:last-child {
             border-right: none;
         }
+
         div#cookie_acceuil {
             position: fixed;
             bottom: 7px;
@@ -269,65 +280,82 @@ span.text-center.text-sm.font-medium.truncate.mt-2 {
             box-shadow: 1px 11px 26px #4a4a42;
             border-radius: 6px;
         }
-        .dashboard-nav ion-icon, .dashboard-nav i {
-            color: #525050!important;
+
+        .dashboard-nav ion-icon,
+        .dashboard-nav i {
+            color: #525050 !important;
         }
-        .dashboard-wrapper .dashboard-nav ul li a{
-            color:gray;
+
+        .dashboard-wrapper .dashboard-nav ul li a {
+            color: gray;
         }
+
         .dashboard-wrapper h4 {
             font-size: 21px;
             color: #669bcc;
             padding-left: 14px;
         }
+
         .specified th {
-            background: #669bcc!important;
+            background: #669bcc !important;
             color: white;
             border-right: 1px solid;
         }
+
         .specified th:last-child {
             border-right: none;
         }
+
         .nparain {
             background: #efefef;
             padding: 14px 14px 14px 21px;
             border: 1px solid #dddddd;
         }
+
         .nparain input {
-            margin-left: 15px!important;
+            margin-left: 15px !important;
         }
+
         div#copy-paraignage {
             margin-left: 7px;
         }
+
         div#copy-paraignage span {
             font-size: 30px;
             color: gray;
         }
+
         .nparain p {
             color: #6b6a6a;
         }
+
         h3.titre-menu {
             color: #669bcc;
             margin-top: -18px;
             font-size: 27px;
         }
+
         h3.titre-menu span {
             margin-left: 22px;
         }
+
         span.nav-tag.messages {
-            border-radius: 100%!important;
+            border-radius: 100% !important;
             height: 18px;
             width: 18px;
-            font-size: 12px!important;
+            font-size: 12px !important;
         }
+
         span.nav-tag.messages span {
             position: absolute;
             top: -5px;
             left: 6px;
         }
+
         span.nav-tag.messages.notif {
-            margin-right: -1px!important;
+            margin-right: -1px !important;
         }
+
         div#res_notification {
             margin: 0 auto;
             position: absolute;
@@ -339,6 +367,7 @@ span.text-center.text-sm.font-medium.truncate.mt-2 {
             box-shadow: 0px 0px 12px 2px #0000002b;
             width: 600%;
         }
+
         div#res_notification:before {
             display: inline-block;
             width: 0;
@@ -360,7 +389,7 @@ span.text-center.text-sm.font-medium.truncate.mt-2 {
         #res_notification .notification-dropdown-item {
             display: flex;
             align-items: center;
-            padding:15px 10px;
+            padding: 15px 10px;
             border-bottom: solid 1px #e6e6e6;
         }
 
@@ -403,214 +432,231 @@ span.text-center.text-sm.font-medium.truncate.mt-2 {
             max-width: 1200px;
             margin: 0 auto;
         }
+
         .dashboard-wrap {
             margin-top: 16px;
         }
+
         .container {
-            margin: 0!important;
-            padding: 0!important;
+            margin: 0 !important;
+            padding: 0 !important;
             width: 100%;
         }
+
         .col-xl-9.col-sm-9.no-padding-left-right {
             padding-left: 37px;
         }
+
         .dashboard-nav ul {
             box-shadow: 0px 0px 28px -22px black;
         }
+
         header.cbx-header {
             background: #69bd44;
         }
+
         .navbar-btn.pull-left a img {
             width: 145px;
         }
+
         .cbx-header .cbx-header-bottom .navbar .navbar-collapse .navbar-nav li a {
-            padding: 20px 24px 7px 0px!important;
+            padding: 20px 24px 7px 0px !important;
         }
+
         .cbx-header .cbx-header-bottom .navbar .navbar-collapse .navbar-nav.navbar-right li a {
             background: transparent;
             border: none;
             margin-right: 0;
-            padding-right: 24px!important;
-            padding-top: 12px!important;
+            padding-right: 24px !important;
+            padding-top: 12px !important;
             text-transform: uppercase;
             font-weight: bold;
             font-size: 15px;
         }
+
         a#showSearchBar {
-            padding-right: 0px!important;
+            padding-right: 0px !important;
         }
-        .cbx-header .cbx-header-bottom .navbar .navbar-collapse .navbar-nav.navbar-right li a:nth-child(1):after{
-        content: "";
-        width: 2px;
-        height: 25px;
-        position: absolute;
-        z-index: 2;
-        background:white;
-        margin-left: 10px;
+
+        .cbx-header .cbx-header-bottom .navbar .navbar-collapse .navbar-nav.navbar-right li a:nth-child(1):after {
+            content: "";
+            width: 2px;
+            height: 25px;
+            position: absolute;
+            z-index: 2;
+            background: white;
+            margin-left: 10px;
         }
+
         .navbar-btn {
             margin-top: -9px;
         }
+
         a#acceuil img {
             margin-top: 16px;
         }
+
         .cbx-header .cbx-header-bottom .navbar .navbar-collapse .navbar-nav.navbar-right li {
-            display: flex!important;
+            display: flex !important;
             margin-top: 9px;
             margin-bottom: 7px;
-            background: transparent!important;
+            background: transparent !important;
             margin-right: 27px;
         }
+
         .cbx-header .cbx-header-bottom .navbar .navbar-collapse .navbar-nav.navbar-right li a:hover {
-            background: transparent!important;
+            background: transparent !important;
         }
+
         .btn-brand i {
-            padding-right: 9px!important;
-                font-size: 16px;
+            padding-right: 9px !important;
+            font-size: 16px;
         }
 
         .dashboard-wrapper .dashboard-nav ul li a {
             font-size: 14px;
         }
+
         div#bs-example-navbar-collapse-1 ul li .dropdown-menu {
             padding-left: 21px;
             padding-right: 21px;
             width: 250px;
         }
+
         #showSearchBar span.nav-tag.messages {
             left: 14px;
         }
-</style>
+    </style>
 
-<input type="hidden" name="idParrain" id='idParrain' value="<?= isset($_SESSION['idParrain']) ? $_SESSION['idParrain'] : ''; ?>" />
+    <input type="hidden" name="idParrain" id='idParrain' value="<?= isset($_SESSION['idParrain']) ? $_SESSION['idParrain'] : ''; ?>" />
 
 
-<div class="cbx-container">
+    <div class="cbx-container">
 
-    <!-- SITE CONTENT -->
+        <!-- SITE CONTENT -->
 
-    <!-- Header Part Start -->
-    <header class="cbx-header">
-        <!-- Header Top Part Start -->
-        <div class="cbx-header-bottom">
-            <div class="row">
-                <nav class="navbar navbar-default">
-                    <div class="navbar-btn pull-left">
-             
-                        <a id="acceuil" href="<?php if (isset($_SESSION["email"])) { echo "MonCompte.php"; }else{ echo "index.php"; } ?>" style="line-height: 63px;margin-left:56px; margin-bottom:56px;">
-            <!--  <img src="./theme/images/logo_final.png"> -->
-                        </a>
-                    </div>
-            
-						 
-                   
-                    <!-- Brand and toggle get grouped for better mobile display -->
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed pull-left" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                            Menu
-                            <!--<span class="sr-only">Toggle navigation</span>
+        <!-- Header Part Start -->
+        <header class="cbx-header">
+            <!-- Header Top Part Start -->
+            <div class="cbx-header-bottom">
+                <div class="row">
+                    <nav class="navbar navbar-default">
+                        <div class="navbar-btn pull-left">
+
+                            <a id="acceuil" href="<?php if (isset($_SESSION["email"])) {
+                                                        echo "MonCompte.php";
+                                                    } else {
+                                                        echo "index.php";
+                                                    } ?>" style="line-height: 63px;margin-left:56px; margin-bottom:56px;">
+                                <!--  <img src="./theme/images/logo_final.png"> -->
+                            </a>
+                        </div>
+
+
+
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed pull-left" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                Menu
+                                <!--<span class="sr-only">Toggle navigation</span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>-->
-                        </button>
-                        <div class="hidden-lg hidden-md hidden-sm pull-right mobile-signin-btn">
-                           
+                            </button>
+                            <div class="hidden-lg hidden-md hidden-sm pull-right mobile-signin-btn">
+
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
-                        <ul class="nav navbar-nav" style="float: right;">
-                            
-                            <?php
-                            if(isset($_SESSION['id'])){
-                            ?>
-                            <li style="margin-top: -1px;list-style: none">
-                                <a href="messagerie.php" id="showSearchBar" class="btn" role="button" ><i style='margin:0 1vh 0 0' class="glyphicon glyphicon-envelope"></i><span class="nav-tag messages" style='background-color:orange;padding:0.5vh;color:white;border-radius:1vh'><span><?= $totalMissionsAttente ; ?></span></span></a>
-                            </li>
-                                <li style="margin-left: 20px;">
-                              <a  href="#" onClick='OpenNotification()'>
-                                   <span class="" style=''></span><i class=""></i>
-                               
-                                    <span class="" style=''><span></span>
-                                     <div id='menuUsers_notification' class='bg-white shadow border-radius'>
-                                        <div id='res_notification'>
-                                            
-                                        
-                                    </div> 
-                                </a>
-                            </li>
-                                  
-                           <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                    <span class="glyphicon glyphicon-user color-white" aria-hidden="true"></span>
-                                </a>
+                            <ul class="nav navbar-nav" style="float: right;">
 
-                                <ul class="dropdown-menu account-dropdown-menu">
-                                    <span class="text-center text-sm font-medium truncate mt-2">
-                                        <?= $mbreNom ?> <?= $mbrePrenom ?>
-                                    </span>
-                                    <hr>
-									
-                                   
-                                    <li><a class="dropdown-item" href="chatroom.php">Chatroom <i style='margin:0 1vh 0 0; float: right' class="glyphicon glyphicon-comment"></i></a></li>
-                                    <li><a class="dropdown-item" href="mission.php">Gagner de l'argent <i style='margin:0 1vh 0 0; float: right' class="glyphicon glyphicon-usd"></i></a></li>
-                                    <li><a class="dropdown-item" href="parrainage.php">Parrainage <i style='margin:0 1vh 0 0; float: right' class="glyphicon glyphicon-fullscreen"></i></a></li>
-                                    <li><a class="dropdown-item" href="payement.php" >Payement <i style='margin:0 1vh 0 0; float: right' class="glyphicon glyphicon-piggy-bank"></i></a></li>
-                                    <li><a class="dropdown-item" href="mes-commandes.php" >Mes Commandes <i style='margin:0 1vh 0 0; float: right' class="glyphicon glyphicon-folder-open"></i></a></li>
-                                    <li><a class="dropdown-item" href="offre_mur.php" >Offre mur <i style='margin:0 1vh 0 0; float: right' class="glyphicon glyphicon-piggy-bank"></i></a></li>
-                                    <li><a class="dropdown-item" href="emailing.php" >Emailing <i style='margin:0 1vh 0 0; float: right' class="glyphicon glyphicon-piggy-bank"></i></a></li>
-                                    <li><a class="dropdown-item" href="mes-participations.php">Mes Participations<i style='margin:0 1vh 0 0; float: right' class="glyphicon glyphicon-list-alt"></i></a></li>
-                                  
-                                    
-                                    <li><div class="dropdown-divider"></div></li>
-                                </ul>
-                            </li>
-                            
-                            <li>
-                                <a onclick="Off()" class="dropdown-item" style="cursor: pointer;"><ion-icon name="power"></ion-icon></a>
-                            </li>
                                 <?php
-                            }
-                            ?>
-                        </ul>
+                                if (isset($_SESSION['id'])) {
+                                ?>
+                                    <li style="margin-top: -1px;list-style: none">
+                                        <a href="messagerie.php" id="showSearchBar" class="btn" role="button"><i style='margin:0 1vh 0 0' class="glyphicon glyphicon-envelope"></i><span class="nav-tag messages" style='background-color:orange;padding:0.5vh;color:white;border-radius:1vh'><span><?= $totalMissionsAttente; ?></span></span></a>
+                                    </li>
+                                    <li style="margin-left: 20px;">
+                                        <a href="#" onClick='OpenNotification()'>
+                                            <span class="" style=''></span><i class=""></i>
 
-                        <ul class="nav navbar-nav navbar-right hidden-xs">
+                                            <span class="" style=''><span></span>
+                                                <div id='menuUsers_notification' class='bg-white shadow border-radius'>
+                                                    <div id='res_notification'>
 
-                            
-                        </ul>
-                    </div><!-- /.navbar-collapse -->
 
-                </nav>
+                                                    </div>
+                                        </a>
+                                    </li>
+
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                            <span class="glyphicon glyphicon-user color-white" aria-hidden="true"></span>
+                                        </a>
+
+                                        <ul class="dropdown-menu account-dropdown-menu">
+                                            <span class="text-center text-sm font-medium truncate mt-2">
+                                                <?= $mbreNom ?> <?= $mbrePrenom ?>
+                                            </span>
+                                            <hr>
+
+
+                                            <li><a class="dropdown-item" href="chatroom.php">Chatroom <i style='margin:0 1vh 0 0; float: right' class="glyphicon glyphicon-comment"></i></a></li>
+                                            <li><a class="dropdown-item" href="mission.php">Gagner de l'argent <i style='margin:0 1vh 0 0; float: right' class="glyphicon glyphicon-usd"></i></a></li>
+                                            <li><a class="dropdown-item" href="parrainage.php">Parrainage <i style='margin:0 1vh 0 0; float: right' class="glyphicon glyphicon-fullscreen"></i></a></li>
+                                            <li><a class="dropdown-item" href="payement.php">Payement <i style='margin:0 1vh 0 0; float: right' class="glyphicon glyphicon-piggy-bank"></i></a></li>
+                                            <li><a class="dropdown-item" href="mes-commandes.php">Mes Commandes <i style='margin:0 1vh 0 0; float: right' class="glyphicon glyphicon-folder-open"></i></a></li>
+                                            <li><a class="dropdown-item" href="offre_mur.php">Offre mur <i style='margin:0 1vh 0 0; float: right' class="glyphicon glyphicon-piggy-bank"></i></a></li>
+                                            <li><a class="dropdown-item" href="emailing.php">Emailing <i style='margin:0 1vh 0 0; float: right' class="glyphicon glyphicon-piggy-bank"></i></a></li>
+                                            <li><a class="dropdown-item" href="mes-participations.php">Mes Participations<i style='margin:0 1vh 0 0; float: right' class="glyphicon glyphicon-list-alt"></i></a></li>
+
+
+                                            <li>
+                                                <div class="dropdown-divider"></div>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                    <li>
+                                        <a onclick="Off()" class="dropdown-item" style="cursor: pointer;"><ion-icon name="power"></ion-icon></a>
+                                    </li>
+                                <?php
+                                }
+                                ?>
+                            </ul>
+
+                            <ul class="nav navbar-nav navbar-right hidden-xs">
+
+
+                            </ul>
+                        </div><!-- /.navbar-collapse -->
+
+                    </nav>
+                </div>
             </div>
-        </div>
 
-        <div id="searchBar" class="collapse" style="background: #fff;">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="searchbar-wrapper">
-                            <form class="navbar-form" role="search">
-                                <div class="input-group">
-                                    <input autocomplete="off" type="text" class="form-control" placeholder="Search" name="q">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+            <div id="searchBar" class="collapse" style="background: #fff;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="searchbar-wrapper">
+                                <form class="navbar-form" role="search">
+                                    <div class="input-group">
+                                        <input autocomplete="off" type="text" class="form-control" placeholder="Search" name="q">
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                                        </div>
                                     </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- Header Top Part End -->
+            <!-- Header Top Part End -->
 
-        <!-- Header Bottom Part Start -->
-    </header>
-
-
-   
-
-
-   
+            <!-- Header Bottom Part Start -->
+        </header>
