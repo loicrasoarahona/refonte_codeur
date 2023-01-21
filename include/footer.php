@@ -53,10 +53,10 @@ $nbMbreActifRoom = getMembresActifsParRoom($mbrePaysChat, $pdo);
     <?php if (isset($_SESSION['id'])) { ?>
         <div id="chat-bar" class="col-xl-3 col-md-4 col-12">
             <div class="chat-box-header">
-                <a data-toggle="dropdown" href="#" class="flag-button"><img style="margin-top: -5px; margin-right : 5px" width="25" src="<?php echo $base_url . "images/flags/" . $mbrePaysChat . ".svg" ?>" /></a>
+                <a data-toggle="dropdown" href="#" class="flag-button"><img style="margin-top: -5px; margin-right : 5px" width="25" src="<?php echo $base_url . "images/flags/" . strtolower($mbrePaysChat) . ".svg" ?>" /></a>
                 <div class="dropdown-menu">
                     <?php foreach ($rooms as $room) { ?>
-                        <a class="dropdown-item" href="<?php echo $base_url . "traitements/changerPaysChat.php?pays=" . $room['pays'] ?>"><?php echo $room['pays']; ?> <img style="margin-top: -4px; margin-right : 5px; margin-left : 5px" width="17" src="<?php echo $base_url . "images/flags/" . $room['pays'] . ".svg" ?>" /></a>
+                        <a class="dropdown-item" href="<?php echo $base_url . "traitements/changerPaysChat.php?pays=" . $room['pays'] ?>"><?php echo $room['pays']; ?> <img style="margin-top: -4px; margin-right : 5px; margin-left : 5px" width="17" src="<?php echo $base_url . "images/flags/" . strtolower($room['pays']) . ".svg" ?>" /></a>
                     <?php } ?>
                 </div>
                 <i class="icofont-1x icofont-chat"></i>
