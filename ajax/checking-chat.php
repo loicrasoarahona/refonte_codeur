@@ -15,7 +15,6 @@ if (!empty($_POST['submit'])) {
 
 		if (!empty($message)) {
 			$fampidirana = $pdo->exec("INSERT INTO tchat (time,idUser,message,date, pays) VALUES (NOW(),'" . $mbreHashId . "','" . $message . "','" . date('d/m/Y à H:i') . "', '" . $mbrePaysChat . "')");
-			var_dump($fampidirana);
 		}
 	}
 }
