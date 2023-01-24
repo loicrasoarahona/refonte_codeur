@@ -59,16 +59,18 @@ $user_role = $_SESSION['userprofile']['type'];
 
 
 			?>
+			<div class="d-flex justify-content-end">
+				<!-- Bouton Desktop -->
+				<div class="d-none d-lg-block">
+					<i id="bt-dropdown-left-menu" style="font-size: 2rem; font-weight: bold; cursor: pointer;" class="bi bi-list"></i>
+				</div>
+			</div>
+
 			<div style="" class="d-flex flex-no-wrap justify-content-between">
 				<div class="" style="margin : 0">
 					<h6 style="text-align: left;" class="text-black"><?php echo $mbreEmail; ?> &nbsp;<a style="color: #de3545; font-size: 1.3rem;" href="logout"><i class="icofont-logout"></i></a></h6>
 					<p style="text-align: left; line-height: 8px;" class=""><?php echo strtoupper($_SESSION['name']); ?></p>
 					<p class="mb-3"></p>
-				</div>
-
-				<!-- Bouton Desktop -->
-				<div class="d-none d-lg-block">
-					<i id="bt-dropdown-left-menu" style="font-size: 2rem; font-weight: bold; cursor: pointer;" class="bi bi-list"></i>
 				</div>
 
 				<!-- Bouton Mobile -->
