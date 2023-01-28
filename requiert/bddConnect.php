@@ -1,7 +1,7 @@
 <?php
 $serveur = 'localhost';
-$login = 'loic';
-$passe = 'anjomakely';
+$login = 'root';
+$passe = '';
 $base_de_donnee = 'timtim';
 // $serveur = 'localhost';
 // $login = 'gifthunter';

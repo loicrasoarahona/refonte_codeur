@@ -38,7 +38,7 @@
 
 	    <!-- membre -->
 
-	    <div class="row py-2">
+	    <div class="py-2 d-flex flex-column flex-lg-row justify-content-around" style="font-size : 1rem">
 	        <div class="col-lg-4 col-md-4 col-sm-12">
 	            <div class="row">
 	                <div class="col-lg-6 col-md-6 col-sm-6">
@@ -99,7 +99,7 @@
 	    <!-- logoPartner -->
 	    <div class="row smallogo">
 	        <?php foreach ($logoPartner as $img) : ?>
-	            <div class="col-lg-1 col-sm-3">
+	            <div class="col-3 col-lg-1">
 	                <img src="<?= $Innerurllink ?>/images/sponsors/<?= $img['image'] ?>" alt="<?= $img['alt'] ?>" class="img-thumbnails border rounded" style="border-radius: 16px!important; height: 50px!important;">
 	            </div>
 	        <?php endforeach; ?>

@@ -20,8 +20,8 @@ session_start();
 
 // Informations d'identification
 define('DB_SERVER', 'localhost');
-define('DB_USERNAME', 'loic');
-define('DB_PASSWORD', 'anjomakely');
+define('DB_USERNAME', 'root');
+define('DB_PASSWORD', '');
 define('DB_NAME', 'timtim');
 // define('DB_SERVER', 'localhost');
 // define('DB_USERNAME', 'gifthunter');
