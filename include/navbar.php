@@ -28,10 +28,7 @@ if ($page_name == "index") {
 
     <div class="page-header section-rotate position-relative">
         <div>
-            <div class="section-inner d-none d-lg-block" style="background-color: #8748c2; max-width: 96%"></div>
-            <div class="d-flex justify-content-end" style="max-width: 96%;">
-                <div class="d-none d-lg-block" style="transform: rotate(7deg); margin-top : -80px;  background-color: #8748c2; width : 50%; height : 675px; position: absolute; z-index: 0"></div>
-            </div>
+            <div class="section-inner d-none d-lg-block" style="background-color: #8748c2; position : absolute"></div>
         </div>
         <section class="middle-nav">
             <div class="container">

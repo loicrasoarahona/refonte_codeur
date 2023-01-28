@@ -46,28 +46,30 @@ if ($_GET['a'] == 'refreshco') {
 
 	$roomUser = (!empty($_POST["room"])) ? $_POST['room'] : $rooms[0]["pays"];
 ?>
-	<button type="button" class="btn-default dropdown-toggle room-dropdown-btn" data-toggle="dropdown" aria-expanded="false">
-		Room <?php echo $roomUser; ?>
-	</button>
-	<input type="hidden" id="room-user" value="<?= strtoupper($roomUser) ?>">
-	<div class="dropdown-menu" style="">
-		<?php foreach ($rooms as $room) : ?>
-			<a class="dropdown-item" data-room="<?= strtoupper($room["pays"]) ?>" href="#">Room <?= strtoupper($room["pays"]) ?></a>
-		<?php endforeach ?>
-	</div>
-	<div style="margin-left: 38px;">
-		<?php
+<button type="button" class="btn-default dropdown-toggle room-dropdown-btn" data-toggle="dropdown"
+    aria-expanded="false">
+    Room <?php echo $roomUser; ?>
+</button>
+<input type="hidden" id="room-user" value="<?= strtoupper($roomUser) ?>">
+<div class="dropdown-menu" style="">
+    <?php foreach ($rooms as $room) : ?>
+    <a class="dropdown-item" data-room="<?= strtoupper($room["pays"]) ?>" href="#">Room
+        <?= strtoupper($room["pays"]) ?></a>
+    <?php endforeach ?>
+</div>
+<div style="margin-left: 38px;">
+    <?php
 
 		if ($j > 0) {
 		?>
-			<i class="icofont-user" style="font-size: 12px;position: absolute;top: 7px;right: 15px;
+    <i class="icofont-user" style="font-size: 12px;position: absolute;top: 7px;right: 15px;
 				                "></i>
-			<span style="font-size: 18px;"><?php echo $j; ?></span>
-		<?php
+    <span style="font-size: 18px;"><?php echo $j; ?></span>
+    <?php
 		}
 		?>
-	</div>
-	<?php
+</div>
+<?php
 
 	/*foreach ($all_top_connectes as $dones_connectes)
 	{
@@ -127,66 +129,65 @@ if ($_GET['a'] == 'refreshchat') {
 
 		if ($dones_chat['userId'] == $userConnect) {
 	?>
-			<div class="chat-msg mb-3 pb-3 owner">
-				<div class="chat-msg-profile">
-					<div class="chat-msg-date" style="bottom: -5px;">
-						<?php
+<div class="chat-msg mb-3 pb-3 owner">
+    <div class="chat-msg-profile">
+        <div class="chat-msg-date" style="bottom: -5px;">
+            <?php
 						echo "<b>Vous</b> [" . $when . "]";
 						if ($mbreLevel > 1) {
 						?>
-							&bull; <a href="#" data-msg-id="<?php echo $dones_chat["id"];  ?>" class="delete-msg text-danger">x</a>
-						<?php
+            &bull; <a href="#" data-msg-id="<?php echo $dones_chat["id"];  ?>" class="delete-msg text-danger">x</a>
+            <?php
 						}
 						?>
-					</div>
-				</div>
-				<div class="chat-msg-content">
-					<div class="chat-msg-text">
-						<?php echo nl2br($dones_chat["message"]); ?>
-					</div>
-				</div>
-			</div>
-		<?php
+        </div>
+    </div>
+    <div class="chat-msg-content">
+        <div class="chat-msg-text">
+            <?php echo nl2br($dones_chat["message"]); ?>
+        </div>
+    </div>
+</div>
+<?php
 		} else {
 		?>
-			<div class="chat-msg mb-3 pb-3">
-				<div class="chat-msg-profile">
-					<div class="chat-msg-date" style="bottom: -5px;">
-						<?php
+<div class="chat-msg mb-3 pb-3">
+    <div class="chat-msg-profile">
+        <div class="chat-msg-date" style="bottom: -5px;">
+            <?php
 						echo "<b>" . $prenom . "</b> [" . $when . "]";
 						if ($mbreLevel > 1) {
 						?>
-							&bull; <a href="#" data-msg-id="<?php echo $dones_chat["id"];  ?>" class="delete-msg text-danger">x</a>
-						<?php
+            &bull; <a href="#" data-msg-id="<?php echo $dones_chat["id"];  ?>" class="delete-msg text-danger">x</a>
+            <?php
 						}
 						?>
-					</div>
-				</div>
-				<div class="chat-msg-content">
-					<div class="chat-msg-text"><?php echo nl2br($dones_chat["message"]); ?></div>
-				</div>
-			</div>
+        </div>
+    </div>
+    <div class="chat-msg-content">
+        <div class="chat-msg-text"><?php echo nl2br($dones_chat["message"]); ?></div>
+    </div>
+</div>
 <?php
 		}/*
 ?>
 <div class="allmsg" style="<?php if ($i%2==1) { ?>background-color:#efefef;<?php } ?>width:100%;padding:1vh">
-	        <div class="head-message">
-	        		<div class="f-s-13">
-					 <strong>[ <?= $when.substr($timer[1],0, strlen($timer[1]) - 3); ?>]</strong>
-				</div>	
-				<div style="color:<?= $color; ?>; font-weight: bold;font-size: 14px;">
-				
-				<?= $prenom; ?> 
-				
-				</div> 
-				
-		</div>
-		
-		<?php if ($mbreLevel > 1) { ?>
-			<a 
-				href="<?= url_site; ?>/chatroom.php?del=1&id=<?= $id; ?>&idUser=<?= $dones_chat['idUser']; ?>&time=<?= $dones_chat['time']; ?>" 
-				onclick="return confirm('Voulez-vous vraiment supprimer ce message ?');">
-				<div style="float:right;
+    <div class="head-message">
+        <div class="f-s-13">
+            <strong>[ <?= $when.substr($timer[1],0, strlen($timer[1]) - 3); ?>]</strong>
+        </div>
+        <div style="color:<?= $color; ?>; font-weight: bold;font-size: 14px;">
+
+            <?= $prenom; ?>
+
+        </div>
+
+    </div>
+
+    <?php if ($mbreLevel > 1) { ?>
+    <a href="<?= url_site; ?>/chatroom.php?del=1&id=<?= $id; ?>&idUser=<?= $dones_chat['idUser']; ?>&time=<?= $dones_chat['time']; ?>"
+        onclick="return confirm('Voulez-vous vraiment supprimer ce message ?');">
+        <div style="float:right;
 				-moz-border-radius:5px;
 				 -webkit-border-radius:5px; 
 				 border-radius:5px;
@@ -196,16 +197,16 @@ if ($_GET['a'] == 'refreshchat') {
 				     font-size: 15px;
 
 				 ">
-					<i class="fa fa-times" aria-hidden="true"></i>
-				</div>
-			</a>
-			<?php } ?>
-		
-		<div class="msg">
-		<?= nl2br($message); ?>
-		</div>
-		
-	</div>
+            <i class="fa fa-times" aria-hidden="true"></i>
+        </div>
+    </a>
+    <?php } ?>
+
+    <div class="msg">
+        <?= nl2br($message); ?>
+    </div>
+
+</div>
 <?php*/
 		$i++;
 	}
