@@ -9,6 +9,18 @@
 	if (!empty($_POST['description'])) { $post_description = htmlspecialchars(addslashes($_POST['description'])); } else { $post_description = null; }
 	if (!empty($_POST['pays'])) { $post_pays = htmlspecialchars(addslashes($_POST['pays'])); } else { $post_pays = null; }
 
+	$categorie_id = null;
+	if(!empty($_POST['categorie']) && $_POST['categorie'] > 0) $categorie_id = $_POST['categorie'];
+
+	if(!empty($_POST['nom_categorie'])) {
+		$sql = "insert into group_offers(nom) values ('". $_POST['nom_categorie'] ."')";
+		$pdo->query($sql);
+		$id = $pdo->lastInsertId();
+		if($id > 0) {
+			$categorie_id = $id;
+		}
+	}
+
 	$post_valid = 0;
 
 	if (!empty($_POST['submit_add'])) {
@@ -58,7 +70,7 @@
 		}
 		
 		$sql="INSERT INTO `coupons` (`typecoupon`, `dateDebut`, `dateFin`, `code`, `nom`, `url`, `description`, `pays`, `valid`, `actif`, `image`, `category_id`) VALUES (";
-		$sql.="'".$post_typecoupon."', '".$post_dateDebutCoupon."', '".$post_dateFinCoupon."', '".$post_code."', '".$post_nom."', '".$post_url."', '".$post_description."', '".$post_pays."',".$post_valid.", '0','".$post_image."',".$post_category.")";
+		$sql.="'".$post_typecoupon."', '".$post_dateDebutCoupon."', '".$post_dateFinCoupon."', '".$post_code."', '".$post_nom."', '".$post_url."', '".$post_description."', '".$post_pays."',".$post_valid.", '0','".$post_image."',".$categorie_id.")";
 		
 		$pdo->exec($sql);
 		
@@ -121,7 +133,7 @@
 			}
 		}
 		
-		$pdo->exec("UPDATE coupons SET category_id= '".$post_category."', description = '".$post_description."', dateDebut = '".$post_dateDebutCoupon."', dateFin = '".$post_dateFinCoupon."', typecoupon = '".$post_typecoupon."', code = '".$post_code."', nom = '".$post_nom."', url = '".$post_url."', description = '".$post_description."', pays = '".$post_pays."' ".($post_image!=null?",image='".$post_image."'":"")." WHERE id = '".intval($_GET['id'])."'");
+		$pdo->exec("UPDATE coupons SET category_id= '".$categorie_id."', description = '".$post_description."', dateDebut = '".$post_dateDebutCoupon."', dateFin = '".$post_dateFinCoupon."', typecoupon = '".$post_typecoupon."', code = '".$post_code."', nom = '".$post_nom."', url = '".$post_url."', description = '".$post_description."', pays = '".$post_pays."' ".($post_image!=null?",image='".$post_image."'":"")." WHERE id = '".intval($_GET['id'])."'");
 
 		$reponsConfirm = 'Les informations du coupons ont bien été modifiées.';
 	}
@@ -140,29 +152,29 @@
 	
 	if (isset($reponsConfirm)) {
 ?>
-		<script type="text/javascript">
-			swal({
-				text: "<?= $reponsConfirm; ?>",
-				button: "Fermer",
-				icon: "success",
-				closeOnClickOutside: false,
-				closeOnEsc: false,
-			});
-		</script>
+<script type="text/javascript">
+swal({
+    text: "<?= $reponsConfirm; ?>",
+    button: "Fermer",
+    icon: "success",
+    closeOnClickOutside: false,
+    closeOnEsc: false,
+});
+</script>
 <?php
 	}
 	
 	if (isset($reponsError)) {
 ?>
-		<script type="text/javascript">
-			swal({
-				text: "<?= $reponsError; ?>",
-				button: "Fermer",
-				icon: "error",
-				closeOnClickOutside: false,
-				closeOnEsc: false,
-			});
-		</script>
+<script type="text/javascript">
+swal({
+    text: "<?= $reponsError; ?>",
+    button: "Fermer",
+    icon: "error",
+    closeOnClickOutside: false,
+    closeOnEsc: false,
+});
+</script>
 <?php
 	}
 ?>
