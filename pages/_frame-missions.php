@@ -74,9 +74,11 @@ $k = " pays LIKE '%" . $country . "%'";
                                         <div class="col-sm-6">
                                             <div class="js-form-message">
                                                 <div class="form-group">
-                                                    <input type="text" class="has-validation form-control" name="s" value="<?php if (isset($_GET['s'])) {
+                                                    <input type="text" class="has-validation form-control" name="s"
+                                                        value="<?php if (isset($_GET['s'])) {
                                                                                                                                 echo $_GET['s'];
-                                                                                                                            } ?>" placeholder="Chercher une offre">
+                                                                                                                            } ?>"
+                                                        placeholder="Chercher une offre">
                                                 </div>
                                             </div>
                                         </div>
@@ -139,9 +141,9 @@ $k = " pays LIKE '%" . $country . "%'";
 
                             if ($offers->rowCount() > 0) {
                             ?>
-                                <div class="col-md-12">
-                                    <div class="row">
-                                        <?php
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <?php
                                         $selected_offers = [];
                                         foreach ($all_offers as $dones_offers) {
                                             $id_line = $dones_offers['id'];
@@ -163,79 +165,96 @@ $k = " pays LIKE '%" . $country . "%'";
 
                                             if ($quota * 1 > count($p) || $quota * 1 == 0) {
                                         ?>
-                                                <div class="col-xl-4 col-sm-6 mb-4">
-                                                    <div class="stor-card custom-card shadow-sm h-100">
-                                                        <div class="custom-card-image" data-toggle="modal" data-target="#offre_<?php echo $id_line; ?>">
-                                                            <a href="#">
-                                                                <img class="img-fluid item-img" src="<?php echo $image; ?>">
-                                                                <div class="member-plan">
-                                                                    <?php if ($dones_offers['premium'] == 1) { ?>
-                                                                        <span class="badge badge-gold">Membre Premium</span>
-                                                                    <?php } ?>
-                                                                    <span style="font-size: 1rem;" class="badge badge-gold"><i class="icofont-money-bag"></i><?php echo displayMontant($remuneration, 2, '€'); ?></span>
-                                                                </div>
-                                                            </a>
+                                    <div class="col-xl-4 col-sm-6 mb-4">
+                                        <div class="stor-card custom-card shadow-sm h-100">
+                                            <div class="custom-card-image" data-toggle="modal"
+                                                data-target="#offre_<?php echo $id_line; ?>">
+                                                <a href="#">
+                                                    <img class="img-fluid item-img" src="<?php echo $image; ?>">
+                                                    <div class="member-plan">
+                                                        <?php if ($dones_offers['premium'] == 1) { ?>
+                                                        <span class="badge badge-gold">Membre Premium</span>
+                                                        <?php } ?>
+                                                        <span style="font-size: 1rem;" class="badge badge-gold"><i
+                                                                class="icofont-money-bag"></i><?php echo displayMontant($remuneration, 2, '€'); ?></span>
+                                                    </div>
+                                                </a>
 
+                                            </div>
+                                            <div class="p-3 pt-2">
+                                                <div class="custom-card-body">
+                                                    <h3 style="font-size: 1rem;" class="text-gray">
+                                                        <?php echo $nom; ?>
+                                                    </h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Modal -->
+                                    <div class="modal fade mission-modal"
+                                        data-url="<?php echo $base_url . "redirect/" . $id_line . "/" . $quota; ?>"
+                                        id="offre_<?php echo $id_line; ?>" data-backdrop="static" data-keyboard="false"
+                                        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div
+                                            class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+
+                                                    <h4 class="modal-title fs-5" id="staticBackdropLabel">
+                                                        <?php echo $nom; ?></h4>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <div class="col-xl-3 col-md-4 col-sm-12">
+                                                            <img class="mb-3 user-cou-img w-100"
+                                                                src="<?php echo $image; ?>" alt="<?php echo $nom; ?>">
                                                         </div>
-                                                        <div class="p-3 pt-2">
-                                                            <div class="custom-card-body">
-                                                                <h3 style="font-size: 1rem;" class="text-gray">
-                                                                    <?php echo $nom; ?>
-                                                                </h3>
+                                                        <div class="col-xl-9 col-md-8 col-sm-12">
+                                                            <div class="row">
+                                                                <div class="col-xl-12 col-md-12 col-sm-12">
+                                                                    <h6 class="d-block"><?php echo $nom; ?></h6>
+                                                                    <?php echo $description; ?>
+                                                                </div>
+
+                                                                <div class="col-xl-12 col-md-12 col-sm-12 text-success text-blod mt-4"
+                                                                    role="alert">
+                                                                    <span
+                                                                        class="badge badge-success"><?php echo displayMontant($remuneration, 2, ' €'); ?></span>
+                                                                    Par Clic "CPC"
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
+
                                                 </div>
-                                                <!-- Modal -->
-                                                <div class="modal fade mission-modal" data-url="<?php echo $base_url . "redirect/" . $id_line . "/" . $quota; ?>" id="offre_<?php echo $id_line; ?>" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                                    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-
-                                                                <h4 class="modal-title fs-5" id="staticBackdropLabel"><?php echo $nom; ?></h4>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">×</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <div class="row">
-                                                                    <div class="col-xl-3 col-md-4 col-sm-12">
-                                                                        <img class="mb-3 user-cou-img w-100" src="<?php echo $image; ?>" alt="<?php echo $nom; ?>">
-                                                                    </div>
-                                                                    <div class="col-xl-9 col-md-8 col-sm-12">
-                                                                        <div class="row">
-                                                                            <div class="col-xl-12 col-md-12 col-sm-12">
-                                                                                <h6 class="d-block"><?php echo $nom; ?></h6>
-                                                                                <?php echo $description; ?>
-                                                                            </div>
-
-                                                                            <div class="col-xl-12 col-md-12 col-sm-12 text-success text-blod mt-4" role="alert">
-                                                                                <span class="badge badge-success"><?php echo displayMontant($remuneration, 2, ' €'); ?></span> Par Clic "CPC"
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <a class="btn btn-secondary" data-dismiss="modal">Fermer</a>
-                                                                <div data-url="<?php echo $base_url . "redirect/" . $id_line . "/" . $quota; ?>" target="_blank" class="btn btn-primary text-white offer-participate" data-id="<?php echo $id_line; ?>" data-link="<?php echo $quota; ?>">Participer</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                <div class="modal-footer">
+                                                    <a class="btn btn-secondary" data-dismiss="modal">Fermer</a>
+                                                    <div data-url="<?php echo $base_url . "redirect/" . $id_line . "/" . $quota; ?>"
+                                                        target="_blank"
+                                                        class="btn btn-primary text-white offer-participate"
+                                                        data-id="<?php echo $id_line; ?>"
+                                                        data-link="<?php echo $quota; ?>">Participer</div>
                                                 </div>
-                                        <?php
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <?php
                                             }
                                         }
                                         ?>
-                                    </div>
                                 </div>
+                            </div>
                             <?php
                             } else {
                             ?>
-                                <div>
-                                    <div class="alert alert-danger rounded-pill text-center" role="alert">Aucune mission n'est disponible pour le moment !</div>
-                                </div>
+                            <div>
+                                <div class="alert alert-danger rounded-pill text-center" role="alert">Aucune mission
+                                    n'est disponible pour le moment !</div>
+                            </div>
                             <?php
                             }
                             ?>

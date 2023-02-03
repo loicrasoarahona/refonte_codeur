@@ -10,6 +10,18 @@
 	if (!empty($_POST['valid'])) { $post_valid = htmlspecialchars(addslashes($_POST['valid'])); }
 
 	if (!empty($_POST['premium'])) { $post_premium = htmlspecialchars(addslashes($_POST['premium'])); } else { $post_premium = null; }
+
+	$categorie_id = null;
+	if(!empty($_POST['categorie']) && $_POST['categorie'] > 0) $categorie_id = $_POST['categorie'];
+
+	if(!empty($_POST['nom_categorie'])) {
+		$sql = "insert into group_offers(nom) values ('". $_POST['nom_categorie'] ."')";
+		$pdo->query($sql);
+		$id = $pdo->lastInsertId();
+		if($id > 0) {
+			$categorie_id = $id;
+		}
+	}
 		
 	if (!empty($_POST['submit_add'])) {
 		if (!empty($_FILES["imageMission"]["name"]) ) {
@@ -85,6 +97,7 @@
 		$pdo->exec("INSERT INTO `offers` 
 		( 
 		`idoffre`, 
+		`id_group`,
 		`nom`, 
 		`url`,
 		`description`, 
@@ -100,6 +113,7 @@
 		VALUES 
 		(
 		'".$post_idoffre."', 
+		". $categorie_id .",
 		'".$post_nom."', 
 		'".$v."', 
 		'".$post_description."', 
@@ -206,7 +220,8 @@
 
 
 		$sql = "UPDATE 
-		offers SET 
+		offers SET
+		id_group = ". $categorie_id .",
 		nom = '".$post_nom."', 
 		url = '".$v."', 
 		description = '".$post_description."', 
