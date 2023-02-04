@@ -3,7 +3,7 @@
 ini_set("error_reporting", 0); //temporaire
 
 $http_origin = $_SERVER['HTTP_ORIGIN'];
-if (strpos(strtolower($http_origin), "https://maxi-coupons.fr/") !== false) {
+if (strpos(strtolower($http_origin), "https://maxi-coupons.com/") !== false) {
     header("Access-Control-Allow-Origin: $http_origin");
     $http_origin = $_SERVER['HTTP_ORIGIN'];
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -39,7 +39,7 @@ setlocale(LC_TIME, ['fr', 'fra', 'fr_FR']);
 date_default_timezone_set('Europe/Paris');
 
 
-$base_url = "https://maxi-coupons.fr/";
+$base_url = "https://maxi-coupons.com/";
 $url_instagram = "";
 $url_youtube = ""; // sans@
 $url_facebook = "";

@@ -12,9 +12,9 @@ try {
 	echo 'Connexion échouée : ' . $e->getMessage();
 }
 
-define("nom_site", "Maxi-Coupons.fr");
-define("url_site", "https://maxi-coupons.fr/");
-define("url_panel", "https://maxi-coupons.fr/administration");
+define("nom_site", "Maxi-Coupons.com");
+define("url_site", "https://maxi-coupons.com/");
+define("url_panel", "https://maxi-coupons.com/administration");
 
 
 define("ip", $_SERVER["REMOTE_ADDR"]);

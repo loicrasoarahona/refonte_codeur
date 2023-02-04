@@ -18,7 +18,7 @@ try {
 // define("nom_site", "127.0.0.1");
 // define("url_site", "http://127.0.0.1/");
 // define("url_panel", "http://127.0.0.1/administration");
-define("nom_site", "Maxi-Coupons.fr");
+define("nom_site", "Maxi-Coupons.com");
 define("url_site", "https://maxi-coupons.com/");
 define("url_panel", "https://maxi-coupons.com/administration");
 
