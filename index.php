@@ -9,7 +9,7 @@ if (in_array($_GET["page"], ["administration", "admin.php"])) {
 }
 
 $Innerurllink = "./";
-$Innerurllink = "https://gifthunter.fr/";
+$Innerurllink = "https://maxi-coupons.fr/";
 include('./include/Mobile_Detect.php');
 
 $detect = new Mobile_Detect();

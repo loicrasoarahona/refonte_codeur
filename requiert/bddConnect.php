@@ -1,9 +1,9 @@
 <?php
 
 $serveur = 'localhost';
-$login = 'gifthunter';
-$passe = '0uq_1iQ44';
-$base_de_donnee = 'admin11_';
+$login = 'u832841964_hunter';
+$passe = 'Timo12300@';
+$base_de_donnee = 'u832841964_hunter';
 
 try {
 	$pdo = new PDO('mysql:dbname=' . $base_de_donnee . ';host=' . $serveur, $login, $passe);
@@ -12,9 +12,9 @@ try {
 	echo 'Connexion échouée : ' . $e->getMessage();
 }
 
-define("nom_site", "Gifthunter.fr");
-define("url_site", "https://gifthunter.fr/");
-define("url_panel", "https://gifthunter.fr/administration");
+define("nom_site", "Maxi-Coupons.fr");
+define("url_site", "https://maxi-coupons.fr/");
+define("url_panel", "https://maxi-coupons.fr/administration");
 
 
 define("ip", $_SERVER["REMOTE_ADDR"]);

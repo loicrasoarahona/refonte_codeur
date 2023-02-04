@@ -3,7 +3,7 @@
 ini_set("error_reporting", 0); //temporaire
 
 $http_origin = $_SERVER['HTTP_ORIGIN'];
-if (strpos(strtolower($http_origin), "https://gifthunter.fr/") !== false) {
+if (strpos(strtolower($http_origin), "https://maxi-coupons.fr/") !== false) {
     header("Access-Control-Allow-Origin: $http_origin");
     $http_origin = $_SERVER['HTTP_ORIGIN'];
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -20,9 +20,9 @@ session_start();
 // Informations d'identification
 
 define('DB_SERVER', 'localhost');
-define('DB_USERNAME', 'gifthunter');
-define('DB_PASSWORD', '0uq_1iQ44');
-define('DB_NAME', 'admin11_');
+define('DB_USERNAME', 'u832841964_hunter');
+define('DB_PASSWORD', 'Timo12300@');
+define('DB_NAME', 'u832841964_hunter');
 
 $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
@@ -39,7 +39,7 @@ setlocale(LC_TIME, ['fr', 'fra', 'fr_FR']);
 date_default_timezone_set('Europe/Paris');
 
 
-$base_url = "https://gifthunter.fr/";
+$base_url = "https://maxi-coupons.fr/";
 $url_instagram = "";
 $url_youtube = ""; // sans@
 $url_facebook = "";
